@@ -36,6 +36,7 @@ function render_questions() {
             question.options.forEach(option => {
 				let input_wrapper = document.createElement("div");
                 let input_element = document.createElement("input");
+                input_wrapper.className = "col-12 question";
                 input_element.id = option.name;
                 input_element.type = "radio";
                 input_element.name = question.category;
@@ -56,7 +57,7 @@ function render_questions() {
                     $(label_element).append(option.value);
                 }
 				$(input_wrapper).append(label_element);
-                $("#person").append(input_wrapper);
+                $("#insert-person").append(input_wrapper);
             });
         });
 }
