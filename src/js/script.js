@@ -69,12 +69,12 @@
                     input_wrapper.className = "col-12 question";
                     input_element.id = option.name;
                     input_element.type = "radio";
-                    input_element.name = question.category;
+                    input_element.name = question.name;
                     input_element.value = option.name;
-                    input_element.dataset.visual_value = question.visual_value;
-                    input_element.dataset.static_value = question.static_value;
-                    input_element.dataset.emotional_value = question.emotional_value;
-                    input_element.dataset.interactive_value = question.interactive_value;
+                    input_element.dataset.visual_value = option.visual_value;
+                    input_element.dataset.static_value = option.static_value;
+                    input_element.dataset.emotional_value = option.emotional_value;
+                    input_element.dataset.interactive_value = option.interactive_value;
                     $(input_wrapper).append(input_element);
                     let label_element = document.createElement("label");
                     label_element.for = input_element.id;
@@ -121,17 +121,18 @@
 		console.log("Form", $('form').serializeArray());
 	
 		$('form').serializeArray().forEach(
-	
 			answer => {
 				let question_object = questions.filter(x => x.name == answer.name)
 				let quiz_object = quiz_questions.filter(x => x.name == answer.name)
 				console.log("je question/answer name", question_object, quiz_object, questions);
 				if (question_object.length > 0) {
-					console.log("Mam quest", question_object[0]);
-					visual_value += question_object[0].visual_value;
-					static_value += question_object[0].static_value;
-					emotional_value += question_object[0].emotional_value;
-					interactive_value += question_object[0].interactive_value;
+					console.log("Mam quest", answer,question_object[0]);
+					let right_option = question_object[0].options.filter(x => x.name == answer.value)
+					visual_value += right_option[0].visual_value
+					static_value += right_option[0].static_value
+					emotional_value += right_option[0].emotional_value
+					interactive_value += right_option[0].interactive_value
+
 				}
 				if (quiz_object.length > 0) {
 					console.log("Mam quiz");
