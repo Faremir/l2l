@@ -4,11 +4,9 @@ var last_clicked = 0;
 
 function save_button() {
 	var timeNow = (new Date()).getTime();
-	let last_div = $('.step_class').last()
-	console.log(timeNow, last_clicked)
+	let last_div = $('.step').last()
 	let step_time_consumed = document.createElement("span");
 	step_time_consumed.innerHTML = (timeNow - last_clicked) / 1000
-	console.log(last_div);
 	$(last_div).append(step_time_consumed);
 	lastClicked = timeNow;
 }
@@ -16,10 +14,20 @@ function save_button() {
 function render_step() {
 	last_clicked = (new Date()).getTime();
 	let step_wrap = document.createElement("div");
-	step_wrap.className = "step_class";
+	step_wrap.className = "step";
+    
+    let step_type_label = document.createElement("label");
+    step_type_label.innerHTML = "Choose type"
 	let step_type_input = document.createElement("select");
+    
+    let step_value_label = document.createElement("label");
+    step_value_label.innerHTML = "Value"
 	let step_value_input = document.createElement("input");
-	let step_comment_input = document.createElement("input");
+
+    let step_com_label = document.createElement("label");
+    step_com_label.innerHTML = "Comment"
+    let step_comment_input = document.createElement("input");
+
 	let options = ['seaching', 'reading', 'listening', 'writing']
 	options.forEach(option => {
 		let opt = document.createElement('option');
@@ -27,8 +35,11 @@ function render_step() {
 		opt.innerHTML = option;
 		step_type_input.appendChild(opt);
 	});
-	$(step_wrap).append(step_type_input);
+	$(step_wrap).append(step_type_label);
+    $(step_wrap).append(step_type_input);
+    $(step_wrap).append(step_value_label);
 	$(step_wrap).append(step_value_input);
+    $(step_wrap).append(step_com_label);
 	$(step_wrap).append(step_comment_input);
 	$('#steps').append(step_wrap);
 }
@@ -36,9 +47,10 @@ function render_step() {
 function render_questions() {
 	questions.forEach(
 		question => {
-			let question_label = document.createElement("span");
+			let question_label = document.createElement("h4");
+            question_label.className = ""
 			question_label.innerHTML = question.text;
-			$("#person").append(question_label);
+			$("#insert-person").append(question_label);
 			question.options.forEach(option => {
 				let input_wrapper = document.createElement("div");
 				let input_element = document.createElement("input");
@@ -57,14 +69,13 @@ function render_questions() {
 				if (["visual", "emotional"].includes(question.category)) {
 					let img_element = document.createElement("img");
 					img_element.src = option.value;
-					img_element.style.maxHeight = "10px";
 					$(label_element).append(img_element);
 				}
 				else {
 					$(label_element).append(option.value);
 				}
 				$(input_wrapper).append(label_element);
-				$("#person").append(input_wrapper);
+				$("#insert-person").append(input_wrapper);
 			});
 		});
 }
@@ -74,7 +85,7 @@ function render_quiz() {
 		question => {
 			let question_label = document.createElement("span");
 			question_label.innerHTML = question.text;
-			$("#results").append(question_label);
+			$("#insert-results").append(question_label);
 			question.options.forEach(option => {
 				let input_wrapper = document.createElement("div");
 				let input_element = document.createElement("input");
@@ -87,8 +98,7 @@ function render_quiz() {
 				label_element.for = input_element.id;
 				$(label_element).append(option.value);
 				$(input_wrapper).append(label_element);
-				$("#results").append(input_wrapper);
+				$("#insert-results").append(input_wrapper);
 			});
-
 		});
 }

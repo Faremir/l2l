@@ -2,7 +2,7 @@ const questions = [
     {
         "name": "Image1",
         "category": "visual",
-        "text": "Whats brings you a joy ?",
+        "text": "Whats brings you a joy?",
         "options": [
             {
                 "name":"image_value1",
@@ -34,7 +34,7 @@ const questions = [
     {
         "name": "Text1",
         "category": "static",
-        "text": "Which statement is the most related to you ?",
+        "text": "Which statement is the most related to you?",
         "options": [
             {
                 "name":"text_value1",
@@ -66,7 +66,7 @@ const questions = [
     {
         "name": "Stain1",
         "category": "emotional",
-        "text": "Which image scares you the most ?",
+        "text": "Which image scares you the most?",
         "options": [
             {
                 "name":"stain_value1",
@@ -98,7 +98,7 @@ const questions = [
     {
         "name": "Options1",
         "category": "interactive",
-        "text": "What is best answer for question ? 'What is Love'",
+        "text": "What is best answer for question?",
         "options": [
             {
                 "name":"options_value1",
