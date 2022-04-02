@@ -96,8 +96,8 @@ const questions = [
         ]
     },
     {
-        "name": "Options1",
-        "category": "interactive",
+        "name": "Cat",
+        "category": "static",
         "text": "When you see the word cat, what do you do first?",
         "options": [
             {
@@ -123,6 +123,29 @@ const questions = [
                 "static_value": 1,
                 "emotional_value": 2,
                 "interactive_value": 4
+            }
+        ]
+    },
+    {
+        "name": "Check",
+        "category": "check",
+        "text": "Did you notice changes on website?",
+        "options": [
+            {
+                "name":"yes",
+                "value": "Yes, this website is communicating with me",
+                "visual_value": 4,
+                "static_value": 4,
+                "emotional_value": 4,
+                "interactive_value": 4
+            },
+            {
+                "name":"no",
+                "value": "No, nothing changed",
+                "visual_value": 1,
+                "static_value": 1,
+                "emotional_value": 1,
+                "interactive_value": 1
             }
         ]
     }

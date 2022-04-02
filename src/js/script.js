@@ -56,7 +56,7 @@ function render_questions() {
                 input_wrapper.className = "col-12 question";
 				input_element.id = option.name;
 				input_element.type = "radio";
-				input_element.name = question.category;
+				input_element.name = question.name;
 				input_element.value = option.name;
 				input_element.dataset.visual_value = question.visual_value;
 				input_element.dataset.static_value = question.static_value;
@@ -88,7 +88,6 @@ function render_quiz() {
 			question.options.forEach(option => {
 				let input_wrapper = document.createElement("div");
 				let input_element = document.createElement("input");
-                input_wrapper.className = "col-12 question";
 				input_element.id = option.name;
 				input_element.type = "radio";
 				input_element.name = question.category;
