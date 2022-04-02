@@ -9,3 +9,15 @@ a.logo .sub-title {
 .landing-page > div.content-bg-wrap {
 	z-index: -1;
 }
+
+.landing-page .content-bg-wrap {
+    background-image: none;
+}
+
+.registration-login-form .nav-item {
+    height: calc(100% / 3)
+}
+
+.tab-pane {
+	padding: 15px;
+}
