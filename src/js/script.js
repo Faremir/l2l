@@ -46,15 +46,15 @@ function render_questions() {
 			question.options.forEach(option => {
 				let input_wrapper = document.createElement("div");
 				let input_element = document.createElement("input");
-                input_wrapper.className = "col-12 question";
+				input_wrapper.className = "col-12 question";
 				input_element.id = option.name;
 				input_element.type = "radio";
 				input_element.name = question.category;
 				input_element.value = option.name;
-				input_element.dataset.visual_value = question.visual_value;
-				input_element.dataset.static_value = question.static_value;
-				input_element.dataset.emotional_value = question.emotional_value;
-				input_element.dataset.interactive_value = question.interactive_value;
+				input_element.dataset.visual_value = option.visual_value;
+				input_element.dataset.static_value = option.static_value;
+				input_element.dataset.emotional_value = option.emotional_value;
+				input_element.dataset.interactive_value = option.interactive_value;
 				$(input_wrapper).append(input_element);
 				let label_element = document.createElement("label");
 				label_element.for = input_element.id;
@@ -80,20 +80,27 @@ function render_quiz() {
 			let question_label = document.createElement("span");
 			question_label.innerHTML = question.text;
 			$("#results").append(question_label);
-			question.options.forEach(option => {
-				let input_wrapper = document.createElement("div");
-				let input_element = document.createElement("input");
-				input_element.id = option.name;
-				input_element.type = "radio";
-				input_element.name = question.category;
-				input_element.value = option.name;
-				$(input_wrapper).append(input_element);
-				let label_element = document.createElement("label");
-				label_element.for = input_element.id;
-				$(label_element).append(option.value);
-				$(input_wrapper).append(label_element);
-				$("#results").append(input_wrapper);
-			});
-
+			let input_wrapper = document.createElement("div");
+			let input_element = document.createElement("input");
+			input_element.id = question.name;
+			input_element.type = "text";
+			$(input_wrapper).append(input_element);
+			let label_element = document.createElement("label");
+			label_element.for = input_element.id;
+			$(input_wrapper).append(label_element);
+			$("#results").append(input_wrapper);
 		});
+	
+
+}
+function process_form()
+{
+
+	questions.forEach(
+		question => {
+			let = $("[name="+question.category+"]");
+		});
+	}
+function validate_answers(){
+
 }
