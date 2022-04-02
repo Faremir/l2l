@@ -159,7 +159,7 @@
 			});
 	    let steps = process_steps();
 		let value = {
-		"total_score": (total_score / max_score ) * 100,
+		"success_rate": (total_score / max_score ) * 100,
 		"visual_value":visual_value,
 		"static_value":static_value,
 		"emotional_value":emotional_value,
@@ -185,7 +185,7 @@
      $(element).children(".step_type")[0].value,
      $(element).children("span")[0].innerText
      );
-     steps_json.add(
+     steps_json.push(
      {
         "step_count": step_count,
         "step_value":  $(element).children(".step_value")[0].value,
@@ -193,9 +193,10 @@
         "step_type":  $(element).children(".step_type")[0].value,
         "step_time": $(element).children("span")[0].innerText
 
-     })
-     return steps_json
-});
+     });
+
+    });
+ return steps_json
 	}
 
     /* -----------------------------
