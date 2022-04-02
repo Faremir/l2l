@@ -78,6 +78,7 @@ function render_quiz() {
 			let input_wrapper = document.createElement("div");
 			let input_element = document.createElement("input");
 			input_element.id = question.name;
+			input_element.name = question.name;
 			input_element.type = "text";
 			$(input_wrapper).append(input_element);
 			let label_element = document.createElement("label");
@@ -85,17 +86,54 @@ function render_quiz() {
 			$(input_wrapper).append(label_element);
 			$("#results").append(input_wrapper);
 		});
-	
+
 
 }
-function process_form()
-{
+function process_form() {
+	let visual_value = 0;
+	let static_value = 0;
+	let emotional_value = 0;
+	let interactive_value = 0;
+	let difference = 0;
+	total_score = 0;
+	console.log("fomr", $('form').serializeArray());
 
-	questions.forEach(
-		question => {
-			let = $("[name="+question.category+"]");
+	$('form').serializeArray().forEach(
+
+		answer => {
+			let question_object = questions.filter(x=> x.category == answer.name)
+			let quiz_object = quiz_questions.filter(x=> x.name == answer.name)
+			console.log("je question/quic", question_object, quiz_object);	
+			if (question_object.length > 0) {
+				console.log("Mam quest");
+				visual_value += question_object[0].visual_value;
+				static_value += question_object[0].static_value;
+				emotional_value += question_object[0].emotional_value;
+				interactive_value += question_object[0].interactive_value;
+			}
+			if (quiz_object.length > 0) {
+				console.log("Mam quiz");
+				if (Number(answer.value)){
+					difference = Math.abs(Number(quiz_object[0].right_answer) - Number(answer.value))
+					let percentage = Number(quiz_object[0].right_answer) / Number(answer.value);
+					let percentage_difference = Math.abs(100 - (percentage *100))
+					// if there is deviation but no big we will give points
+					if (percentage_difference < 20){ 
+						total_score += (100) * ((100 - percentage_difference)/100)
+					}
+				}
+				// if is answer a string only right answer is considered as valid
+				else{
+					if (quiz_object[0].right_answer == answer.value){
+						total_score += 100;
+					}
+				}
+			}
 		});
-	}
-function validate_answers(){
+		console.log(total_score);
+		console.log(visual_value,static_value,emotional_value,interactive_value);
+
+}
+function validate_answers() {
 
 }
