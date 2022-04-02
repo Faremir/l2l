@@ -53,7 +53,11 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
     def interrupt(self):
         print("Server is going down, run it again manually!")
-        _thread.start_new_thread(httpd.shutdown, (httpd,))
+
+        def kill_server(server):
+            server.shutdown()
+
+        _thread.start_new_thread(kill_server, (httpd,))
         self.send_error(500)
 
 
