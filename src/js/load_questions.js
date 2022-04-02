@@ -28,6 +28,14 @@ const questions = [
                 "static_value": 1,
                 "emotional_value": 4,
                 "interactive_value": 2
+            },
+            {
+                "name":"static",
+                "value": "https://previews.123rf.com/images/belopoppa/belopoppa2004/belopoppa200400011/144339125-illustrazione-del-test-delle-macchie-d-inchiostro-di-rorschach-macchie-di-inchiostro-astratte-simmet.jpg",
+                "visual_value": 1,
+                "static_value": 4,
+                "emotional_value": 2,
+                "interactive_value": 3
             }
         ]
     },
@@ -51,8 +59,7 @@ const questions = [
                 "static_value": 4,
                 "emotional_value": 1,
                 "interactive_value": 2
-            }
-            ,
+            },
             {
                 "name":"puzzle",
                 "value": "A book with word searches or crossword puzzles",
@@ -60,7 +67,15 @@ const questions = [
                 "static_value": 1,
                 "emotional_value": 2,
                 "interactive_value": 4
-            }
+            },
+            {
+                "name":"poetry",
+                "value": "A book full of poetry",
+                "visual_value": 2,
+                "static_value": 1,
+                "emotional_value": 4,
+                "interactive_value": 3
+            },
         ]
     },
     {
@@ -83,8 +98,7 @@ const questions = [
                 "static_value": 2,
                 "emotional_value": 4,
                 "interactive_value": 3
-            }
-            ,
+            },
             {
                 "name":"trace",
                 "value": "Trace the letters in the air (finger spelling)",
@@ -92,6 +106,14 @@ const questions = [
                 "static_value": 1,
                 "emotional_value": 2,
                 "interactive_value": 4
+            },
+            {
+                "name":"wood",
+                "value": "Make it out of wood",
+                "visual_value": 4,
+                "static_value": 2,
+                "emotional_value": 2,
+                "interactive_value": 1
             }
         ]
     },
@@ -123,13 +145,21 @@ const questions = [
                 "static_value": 1,
                 "emotional_value": 2,
                 "interactive_value": 4
+            },
+            {
+                "name":"think",
+                "value": "Scream of of joy",
+                "visual_value": 3,
+                "static_value": 2,
+                "emotional_value": 4,
+                "interactive_value": 1
             }
         ]
     },
     {
         "name": "Check",
         "category": "check",
-        "text": "Did you notice changes on website?",
+        "text": "Did you any notice changes on website?",
         "options": [
             {
                 "name":"yes",
