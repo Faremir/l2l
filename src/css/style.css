@@ -6,6 +6,6 @@ a.logo .sub-title {
 	font-size: 13px;
 }
 
-.landing-content {
-	color: white;
+.landing-page > div.content-bg-wrap {
+	z-index: -1;
 }
