@@ -1,7 +1,7 @@
 const quiz_questions = [
     {
         "name": "quiz1",
-        "right_answer": "30 688",
+        "right_answer": "30688",
         "text": "How big is the belgium ? (in km2)",
         "options": [
             {
@@ -22,8 +22,8 @@ const quiz_questions = [
     },
     {
         "name": "quiz2",
-        "right_answer": "30 688",
-        "text": "How big is the belgium ? (in km2)",
+        "right_answer": "Yes",
+        "text": "Is Belgium nice ?",
         "options": [
             {
                 "name":"image_value1",
@@ -43,7 +43,7 @@ const quiz_questions = [
     },
     {
         "name": "quiz3",
-        "right_answer": "30 688",
+        "right_answer": "30688",
         "text": "How big is the belgium ? (in km2)",
         "options": [
             {
