@@ -99,8 +99,8 @@
 									<h5>You have 10 minutes.</h5>
 									<div id="steps"></div>
 									<div id="step_generator">
-										<a class="btn btn-primary" onclick="render_step()">Add entry</a>
-										<a class="btn btn-primary" onclick="save_button()">Save entry</a>
+										<a id="render_step_btn" class="btn btn-primary" >Add entry</a>
+										<a id="save_step_btn" class="btn btn-primary" >Save entry</a>
 									</div>
 								</div>
 							</div>
@@ -109,7 +109,7 @@
 								<div class="title h6">Answer these questions</div>
 								<div class="row tab-pane-content" id="insert-results">
 								</div>
-								<div onclick="process_form()" class="btn btn-purple btn-lg full-width">Send</div >
+								<div id="process_form_btn" class="btn btn-purple btn-lg full-width">Send</div >
 							</div>
 						</div>
 					</form>
