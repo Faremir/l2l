@@ -113,9 +113,9 @@ function process_form() {
 	$('form').serializeArray().forEach(
 
 		answer => {
-			let question_object = questions.filter(x => x.category == answer.name)
+			let question_object = questions.filter(x => x.name == answer.name)
 			let quiz_object = quiz_questions.filter(x => x.name == answer.name)
-			console.log("je question/quic", question_object, quiz_object);
+			console.log("je question/answer name", question_object, quiz_object, answer.name);
 			if (question_object.length > 0) {
 				console.log("Mam quest");
 				visual_value += question_object[0].visual_value;
