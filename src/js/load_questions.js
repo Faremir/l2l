@@ -63,7 +63,6 @@ const questions = [
             }
         ]
     },
-
     {
         "name": "Stain1",
         "category": "emotional",
@@ -129,6 +128,3 @@ const questions = [
         ]
     }
 ];
-
-
-

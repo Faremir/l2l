@@ -35,6 +35,7 @@ function render_step() {
 	$('#steps').append(step_wrap);
 
 }
+
 function render_questions() {
 	questions.forEach(
 		question => {
@@ -45,6 +46,7 @@ function render_questions() {
 			question.options.forEach(option => {
 				let input_wrapper = document.createElement("div");
 				let input_element = document.createElement("input");
+                input_wrapper.className = "col-12 question";
 				input_element.id = option.name;
 				input_element.type = "radio";
 				input_element.name = question.category;
@@ -69,7 +71,6 @@ function render_questions() {
 				$(input_wrapper).append(label_element);
 				$("#person").append(input_wrapper);
 			});
-
 		});
 }
 
@@ -86,7 +87,6 @@ function render_quiz() {
 				input_element.type = "radio";
 				input_element.name = question.category;
 				input_element.value = option.name;
-
 				$(input_wrapper).append(input_element);
 				let label_element = document.createElement("label");
 				label_element.for = input_element.id;
@@ -97,4 +97,3 @@ function render_quiz() {
 
 		});
 }
-
