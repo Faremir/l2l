@@ -1,65 +1,22 @@
 const quiz_questions = [
     {
-        "name": "quiz1",
+        "name": "area",
         "right_answer": "30688",
-        "text": "How big is the belgium ? (in km2)",
-        "options": [
-            {
-                "name":"image_value1",
-                "value": "25 320",
-                
-            },
-            {
-                "name":"image_value1",
-                "value": "55 144",
-            }
-            ,
-            {
-                "name":"image_value1",
-                "value": "30 688",
-            }
-        ]
+        "text": "How large area Belgium covers (km2)?"
     },
     {
-        "name": "quiz2",
-        "right_answer": "Yes",
-        "text": "Is Belgium nice ?",
-        "options": [
-            {
-                "name":"image_value1",
-                "value": "25 320",
-                
-            },
-            {
-                "name":"image_value1",
-                "value": "55 144",
-            }
-            ,
-            {
-                "name":"image_value1",
-                "value": "30 688",
-            }
-        ]
+        "name": "sea",
+        "right_answer": "yes",
+        "text": "Does Belgium have access to the sea?"
     },
     {
-        "name": "quiz3",
-        "right_answer": "30688",
-        "text": "How big is the belgium ? (in km2)",
-        "options": [
-            {
-                "name":"image_value1",
-                "value": "25 320",
-                
-            },
-            {
-                "name":"image_value1",
-                "value": "55 144",
-            }
-            ,
-            {
-                "name":"image_value1",
-                "value": "30 688",
-            }
-        ]
+        "name": "capital",
+        "right_answer": "Brussels",
+        "text": "What is the Belgium capital city?"
+    },
+    {
+        "name": "happy",
+        "right_answer": "7",
+        "text": "Whats Belgium happiness index (1-10)?"
     },
 ];
