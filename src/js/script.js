@@ -1,3 +1,5 @@
+
+
 render_questions();
 render_quiz();
 var last_clicked = 0;
@@ -82,26 +84,23 @@ function render_questions() {
 function render_quiz() {
 	quiz_questions.forEach(
 		question => {
-			let question_label = document.createElement("h4");
+			let question_label = document.createElement("span");
 			question_label.innerHTML = question.text;
 			$("#insert-results").append(question_label);
-			question.options.forEach(option => {
-				let input_wrapper = document.createElement("div");
-				let input_element = document.createElement("input");
-				input_element.id = option.name;
-				input_element.type = "radio";
-				input_element.name = question.category;
-				input_element.value = option.name;
-				$(input_wrapper).append(input_element);
-				let label_element = document.createElement("label");
-				label_element.for = input_element.id;
-				$(label_element).append(option.value);
-				$(input_wrapper).append(label_element);
-				$("#insert-results").append(input_wrapper);
-			});
+			let input_wrapper = document.createElement("div");
+			let input_element = document.createElement("input");
+			input_element.id = question.name;
+			input_element.name = question.name;
+			input_element.type = "text";
+			$(input_wrapper).append(input_element);
+			let label_element = document.createElement("label");
+			label_element.for = input_element.id;
+			$(input_wrapper).append(label_element);
+			$("#insert-results").append(input_wrapper);
 		});
+	};
 
-}
+
 function process_form() {
 	let visual_value = 0;
 	let static_value = 0;
@@ -151,3 +150,5 @@ function process_form() {
 function validate_answers() {
 
 }
+
+
