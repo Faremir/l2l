@@ -208,13 +208,13 @@
                 //data - response from server
                 console.log(data, textStatus, jqXHR);
                 $('body.landing-page').load('network.html', function() {
-                    $('.main-header-content').html('<p>asdf</p>')
+                    $('.main-header-content').html('<p>data</p>')
                 });
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 // render error
                 $('body.landing-page').load('network.html', function() {
-                    $('.main-header-content').html('<p>asdf</p>')
+                    $('.main-header-content').html('<p>error</p>')
                 });
             }
         });
@@ -237,7 +237,7 @@
 			save_button();
 		})
 		$("#process_form_btn").on("click", function(){
-			data = process_form();
+			var data = process_form();
             call_ajax(data);
 		})
 
