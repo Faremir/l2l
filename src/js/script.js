@@ -39,6 +39,9 @@ function render_questions() {
 	questions.forEach(
 		question => {
 			// console.log(question.category);
+			let question_label = document.createElement("span");
+			question_label.innerHTML = question.text;
+			$("#person").append(question_label);
 			question.options.forEach(option => {
 				let input_wrapper = document.createElement("div");
 				let input_element = document.createElement("input");
