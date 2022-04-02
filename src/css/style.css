@@ -10,6 +10,10 @@ a.logo .sub-title {
 	z-index: -1;
 }
 
+.title-block {
+	margin-bottom: 15px;
+}
+
 .landing-page .content-bg-wrap {
     background-image: none;
 }
