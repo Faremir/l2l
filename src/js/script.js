@@ -33,14 +33,17 @@
         let step_type_label = document.createElement("label");
         step_type_label.innerHTML = "Choose type"
         let step_type_input = document.createElement("select");
+        step_type_input.className = 'step_type';
 
         let step_value_label = document.createElement("label");
         step_value_label.innerHTML = "Value"
         let step_value_input = document.createElement("input");
+        step_value_input.className = 'step_value';
 
         let step_com_label = document.createElement("label");
         step_com_label.innerHTML = "Comment"
         let step_comment_input = document.createElement("input");
+        step_comment_input.className = 'step_comment';
         let options = ['seaching', 'reading', 'listening', 'writing'];
         options.forEach(option => {
             let opt = document.createElement('option');
@@ -112,21 +115,21 @@
 		};
 
 	function process_form() {
+	    let max_score = 0;
 		let visual_value = 0;
 		let static_value = 0;
 		let emotional_value = 0;
 		let interactive_value = 0;
 		let difference = 0;
 		let total_score = 0;
-		console.log("Form", $('form').serializeArray());
+//		console.log("Form", $('form').serializeArray());
 	
 		$('form').serializeArray().forEach(
 			answer => {
 				let question_object = questions.filter(x => x.name == answer.name)
 				let quiz_object = quiz_questions.filter(x => x.name == answer.name)
-				console.log("je question/answer name", question_object, quiz_object, questions);
+//				console.log("je question/answer name", question_object, quiz_object, questions);
 				if (question_object.length > 0) {
-					console.log("Mam quest", answer,question_object[0]);
 					let right_option = question_object[0].options.filter(x => x.name == answer.value)
 					visual_value += right_option[0].visual_value
 					static_value += right_option[0].static_value
@@ -135,7 +138,7 @@
 
 				}
 				if (quiz_object.length > 0) {
-					console.log("Mam quiz");
+				    max_score += 100
 					if (Number(answer.value)) {
 						difference = Math.abs(Number(quiz_object[0].right_answer) - Number(answer.value))
 						let percentage = Number(quiz_object[0].right_answer) / Number(answer.value);
@@ -154,10 +157,46 @@
 				}
 	
 			});
-		console.log(total_score);
-		console.log(visual_value, static_value, emotional_value, interactive_value);
+	    let steps = process_steps();
+		let value = {
+		"total_score": (total_score / max_score ) * 100,
+		"visual_value":visual_value,
+		"static_value":static_value,
+		"emotional_value":emotional_value,
+		"interactive_value":interactive_value,
+		"steps": steps
+		}
+		console.log(value)
+		return value;
+
+
 	
 	};
+	function process_steps()
+	{
+	 let step_count = 1;
+     let step_elements = $('.step');
+     let steps_json = []
+     $('.step').each(function(obj, element) {
+       console.log("object", element);
+       console.log("VAlues",
+     $(element).children(".step_value")[0].value,
+     $(element).children(".step_comment")[0].value,
+     $(element).children(".step_type")[0].value,
+     $(element).children("span")[0].innerText
+     );
+     steps_json.add(
+     {
+        "step_count": step_count,
+        "step_value":  $(element).children(".step_value")[0].value,
+        "step_comment":  $(element).children(".step_comment")[0].value,
+        "step_type":  $(element).children(".step_type")[0].value,
+        "step_time": $(element).children("span")[0].innerText
+
+     })
+     return steps_json
+});
+	}
 
     /* -----------------------------
      * On DOM ready functions
@@ -177,6 +216,7 @@
 		})
 		$("#process_form_btn").on("click", function(){
 			process_form();
+
 		})
 
     });
