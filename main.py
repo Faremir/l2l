@@ -1,7 +1,5 @@
 import _thread
 import http.server
-import json
-import logging
 import socketserver
 
 from models import L2lParser
@@ -9,6 +7,8 @@ from models import L2lParser
 URL = "localhost"
 PORT = 8000
 DIRECTORY = "src"
+
+STORED_PROCESSES = []
 
 
 class KillableServer(socketserver.TCPServer):
@@ -21,6 +21,7 @@ class KillableServer(socketserver.TCPServer):
 
 
 class Handler(http.server.SimpleHTTPRequestHandler):
+    processor = L2lParser.L2l_Parser(STORED_PROCESSES)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=DIRECTORY, **kwargs)
@@ -37,16 +38,17 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
     def do_POST(self):
         self._set_json_headers()
-        logging.info("In POST method!")
         data_string = self.rfile.read(int(self.headers['Content-Length']))
+
+        if self.path.startswith('/prepare_data'):
+            self.processor.prepare_test(data_string)
+        elif self.path.startswith('/determine'):
+            self.processor.parse(data_string)
+
+        STORED_PROCESSES.sort(key=lambda process: process.overall_success_rate)
 
         self.send_response(200)
         self.end_headers()
-        data = json.loads(data_string)
-
-        if self.path.startswith('/determine'):
-            req = L2lParser.L2l_Parser()
-            req.parse(data)
 
         return
 
