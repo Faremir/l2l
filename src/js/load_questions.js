@@ -5,7 +5,7 @@ const questions = [
         "text": "Choose one picture.",
         "options": [
             {
-                "name":"image_value1",
+                "name":"visual",
                 "value": "https://thumbs.dreamstime.com/b/rorschach-inkblot-test-illustration-random-symmetrical-ink-abstract-ink-stain-psycho-diagnostic-inkblot-rorschach-projection-164249184.jpg",
                 "visual_value": 4,
                 "static_value": 1,
@@ -13,20 +13,20 @@ const questions = [
                 "interactive_value": 2
             },
             {
-                "name":"image_value2",
+                "name":"interactive",
                 "value": "https://previews.123rf.com/images/belopoppa/belopoppa2004/belopoppa200400009/144339246-rorschach-inkblot-test-illustration-random-symmetrical-abstract-ink-stains-psycho-diagnostic-for-ink.jpg",
                 "visual_value": 2,
                 "static_value": 1,
                 "emotional_value": 3,
-                "interactive_value": 2
+                "interactive_value": 4
             }
             ,
             {
-                "name":"image_value3",
+                "name":"emotional",
                 "value": "https://cdn.w600.comps.canstockphoto.com/rorschach-inkblot-test-illustration-eps-vector_csp66312181.jpg",
                 "visual_value": 3,
                 "static_value": 1,
-                "emotional_value": 3,
+                "emotional_value": 4,
                 "interactive_value": 2
             }
         ]
