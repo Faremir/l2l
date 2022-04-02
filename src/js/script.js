@@ -20,7 +20,6 @@ function render_step() {
 	let step_type_input = document.createElement("select");
 	let step_value_input = document.createElement("input");
 	let step_comment_input = document.createElement("input");
-
 	let options = ['seaching', 'reading', 'listening', 'writing']
 	options.forEach(option => {
 		let opt = document.createElement('option');
@@ -31,15 +30,12 @@ function render_step() {
 	$(step_wrap).append(step_type_input);
 	$(step_wrap).append(step_value_input);
 	$(step_wrap).append(step_comment_input);
-
 	$('#steps').append(step_wrap);
-
 }
 
 function render_questions() {
 	questions.forEach(
 		question => {
-			// console.log(question.category);
 			let question_label = document.createElement("span");
 			question_label.innerHTML = question.text;
 			$("#person").append(question_label);
@@ -67,7 +63,6 @@ function render_questions() {
 				else {
 					$(label_element).append(option.value);
 				}
-
 				$(input_wrapper).append(label_element);
 				$("#person").append(input_wrapper);
 			});
