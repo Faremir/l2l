@@ -48,7 +48,6 @@ function render_questions() {
 	questions.forEach(
 		question => {
 			let question_label = document.createElement("h4");
-            question_label.className = ""
 			question_label.innerHTML = question.text;
 			$("#insert-person").append(question_label);
 			question.options.forEach(option => {
@@ -83,12 +82,13 @@ function render_questions() {
 function render_quiz() {
 	quiz_questions.forEach(
 		question => {
-			let question_label = document.createElement("span");
+			let question_label = document.createElement("h4");
 			question_label.innerHTML = question.text;
 			$("#insert-results").append(question_label);
 			question.options.forEach(option => {
 				let input_wrapper = document.createElement("div");
 				let input_element = document.createElement("input");
+                input_wrapper.className = "col-12 question";
 				input_element.id = option.name;
 				input_element.type = "radio";
 				input_element.name = question.category;

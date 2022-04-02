@@ -1083,19 +1083,14 @@ var test_case = {
         }
     ]
 };
-(function ($) {
 
+(function ($) {
     // USE STRICT
     "use strict";
 
-    //----------------------------------------------------/
-    // Predefined Variables
-    //----------------------------------------------------/
     var $document = $(document);
 
     $document.ready(function () {
-
-
         $.ajax({
             url: "/prepare_data",
             type: "POST",
@@ -1107,7 +1102,6 @@ var test_case = {
 
             }
         });
-
 
         $.ajax({
             url: "/determine",
@@ -1122,7 +1116,5 @@ var test_case = {
                 console.log(jqXHR, textStatus, errorThrown);
             }
         });
-
-
     });
 })(jQuery);
