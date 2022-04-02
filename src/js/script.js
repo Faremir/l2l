@@ -159,6 +159,27 @@
 	
 	};
 
+    function call_ajax(data) {
+        $.ajax({
+            url: "/determine",
+            type: "POST",
+            data: JSON.stringify(data),
+            success: function (data, textStatus, jqXHR) {
+                //data - response from server
+                console.log(data, textStatus, jqXHR);
+                $('body.landing-page').load('network.html', function() {
+                    $('.main-header-content').html('<p>asdf</p>')
+                });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                // render error
+                $('body.landing-page').load('network.html', function() {
+                    $('.main-header-content').html('<p>asdf</p>')
+                });
+            }
+        });
+    }
+
     /* -----------------------------
      * On DOM ready functions
      * ---------------------------*/
@@ -177,6 +198,8 @@
 		})
 		$("#process_form_btn").on("click", function(){
 			process_form();
+            var data = 'asdf';
+            call_ajax(data);
 		})
 
     });
