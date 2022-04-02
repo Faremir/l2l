@@ -17,15 +17,12 @@
 	<!-- Main Theme CSS -->
 	<link rel="stylesheet" type="text/css" href="css/main.min.css">
 
-	<!-- Main GymBeam CSS -->
+	<!-- GymBeam CSS -->
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-
 <body class="landing-page">
-	<!-- Background -->
 	<div class="content-bg-wrap"></div>
 
-	<!-- Header Standard Landing  -->
 	<div class="header--standard header--standard-landing" id="header--standard">
 		<div class="container mt-3">
 			<div class="header--standard-wrap">
@@ -39,7 +36,6 @@
 		</div>
 	</div>
 
-	<!-- ... end Header Standard Landing  -->
 	<div class="header-spacer--standard"></div>
 
 	<div class="container">
@@ -76,102 +72,30 @@
 					</ul>
 
 					<!-- Tab panes -->
-					<form method="POST" enctype="multipart/form-data" action="/determine">
+					<form>
 						<div class="tab-content" id="registration-form-tabs-content">
 							<div class="tab-pane fade show active" id="person" role="tabpanel" aria-labelledby="person-tab">
 								<div class="row">
-									<div class="col col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
-										<div class="form-group label-floating">
-											<label class="control-label">First Name</label>
-											<input class="form-control" placeholder="" type="text">
-										</div>
-									</div>
-
-									<div class="col col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
-										<div class="form-group label-floating">
-											<label class="control-label">Last Name</label>
-											<input class="form-control" placeholder="" type="text">
-										</div>
-									</div>
-
-									<div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
-										<div class="form-group label-floating">
-											<label class="control-label">Your Email</label>
-											<input class="form-control" placeholder="" type="email">
-										</div>
-
-										<div class="form-group label-floating">
-											<label class="control-label">Your Password</label>
-											<input class="form-control" placeholder="" type="password">
-										</div>
-
-										<div class="form-group date-time-picker label-floating">
-											<label class="control-label">Your Birthday</label>
-											<input name="datetimepicker" value="10/24/1984" />
-											<span class="input-group-addon">
-												<svg class="olymp-calendar-icon"><use xlink:href="#olymp-calendar-icon"></use></svg>
-											</span>
-										</div>
-
-										<div class="form-group label-floating is-select">
-											<label class="control-label">Your Gender</label>
-											<select class="form-select">
-												<option value="MA">Male</option>
-												<option value="FE">Female</option>
-											</select>
-										</div>
-
-										<div class="remember">
-											<div class="checkbox">
-												<label>
-													<input name="optionsCheckboxes" type="checkbox">
-													I accept the <a href="#">Terms and Conditions</a> of the website
-												</label>
-											</div>
-										</div>
+									<div class="col">
+										<button class="btn btn-purple btn-lg next-step">Next Step</button>
 									</div>
 								</div>
 							</div>
 
 							<div class="tab-pane fade" id="learning" role="tabpanel" aria-labelledby="learning">
 								<div class="row">
-									<div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
-										<div class="form-group label-floating">
-											<label class="control-label">Your Email</label>
-											<input class="form-control" placeholder="" type="email">
-										</div>
-										<div class="form-group label-floating">
-											<label class="control-label">Your Password</label>
-											<input class="form-control" placeholder="" type="password">
-										</div>
-
-										<div class="remember">
-
-											<div class="checkbox">
-												<label>
-													<input name="optionsCheckboxes" type="checkbox">
-													Remember Me
-												</label>
-											</div>
-											<a href="#" class="forgot" data-bs-toggle="modal" data-bs-target="#restore-password">Forgot my Password</a>
-										</div>
-
-										<a href="#" class="btn btn-lg btn-primary full-width">Login</a>
-
-										<div class="or"></div>
-
-										<a href="#" class="btn btn-lg bg-facebook full-width btn-icon-left"><svg width="16" height="16"><use xlink:href="#olymp-facebook-icon"></use></svg>Login with Facebook</a>
-
-										<a href="#" class="btn btn-lg bg-twitter full-width btn-icon-left"><svg width="16" height="16"><use xlink:href="#olymp-twitter-icon"></use></svg>Login with Twitter</a>
-
-
-										<p>Don’t you have an account? <a href="/register">Register Now!</a> it’s really simple and you can start enjoing all the benefits!</p>
+									<div class="col">
+										<button class="btn btn-purple btn-lg">Next Step</button>
 									</div>
 								</div>
 							</div>
 
 							<div class="tab-pane fade" id="results" role="tabpanel" aria-labelledby="results">
-								<button type="submit" class="btn btn-purple btn-lg full-width">Send</button>
+								<div class="row">
+									<div class="col">
+										<button type="submit" class="btn btn-purple btn-lg full-width">Send</button>	
+									</div>
+								</div>
 							</div>
 						</div>
 					</form>
@@ -195,12 +119,14 @@
 	<script src="js/libs/jquery.magnific-popup.min.js"></script>
 
 	<script src="js/main.js"></script>
-	<script src="js/test.js"></script>
 	<script src="js/libs-init/libs-init.js"></script>
 
 	<script src="Bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 	<!-- SVG icons loader -->
 	<script src="js/svg-loader.js"></script>
+
+	<!-- GymBeam JS -->
+	<script src="js/script.js"></script>
 </body>
 </html>
