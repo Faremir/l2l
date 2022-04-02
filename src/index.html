@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<title>learn+2+learn</title>
 
@@ -20,6 +21,7 @@
 	<!-- GymBeam CSS -->
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
+
 <body class="landing-page">
 	<div class="content-bg-wrap"></div>
 
@@ -43,7 +45,8 @@
 			<div class="col col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
 				<div class="landing-content">
 					<h1>Improve your learning</h1>
-					<p>Changes that make your brain work different - Network that will improve your learning process.</p>
+					<p>Changes that make your brain work different - Network that will improve your learning process.
+					</p>
 				</div>
 			</div>
 
@@ -53,20 +56,29 @@
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" id="registration-form-tabs" role="tablist">
 						<li class="nav-item" role="presentation">
-							<a class="nav-link active" id="person-icon" data-bs-toggle="tab" href="#person" role="tab" aria-controls="person" aria-selected="true">
-								<svg class="olymp-login-icon"><use xlink:href="#olymp-register-icon"></use></svg>
+							<a class="nav-link active" id="person-icon" data-bs-toggle="tab" href="#person" role="tab"
+								aria-controls="person" aria-selected="true">
+								<svg class="olymp-login-icon">
+									<use xlink:href="#olymp-register-icon"></use>
+								</svg>
 							</a>
 						</li>
 
 						<li class="nav-item" role="presentation">
-							<a class="nav-link" id="learning-icon" data-bs-toggle="tab" href="#learning" role="tab" aria-controls="learning" aria-selected="false">
-								<svg class="olymp-register-icon"><use xlink:href="#olymp-register-icon"></use></svg>
+							<a class="nav-link" id="learning-icon" data-bs-toggle="tab" href="#learning" role="tab"
+								aria-controls="learning" aria-selected="false">
+								<svg class="olymp-register-icon">
+									<use xlink:href="#olymp-register-icon"></use>
+								</svg>
 							</a>
 						</li>
 
 						<li class="nav-item" role="presentation">
-							<a class="nav-link" id="results-icon" data-bs-toggle="tab" href="#results" role="tab" aria-controls="results" aria-selected="false">
-								<svg class="olymp-register-icon"><use xlink:href="#olymp-register-icon"></use></svg>
+							<a class="nav-link" id="results-icon" data-bs-toggle="tab" href="#results" role="tab"
+								aria-controls="results" aria-selected="false">
+								<svg class="olymp-register-icon">
+									<use xlink:href="#olymp-register-icon"></use>
+								</svg>
 							</a>
 						</li>
 					</ul>
@@ -74,12 +86,15 @@
 					<!-- Tab panes -->
 					<form>
 						<div class="tab-content" id="registration-form-tabs-content">
-							<div class="tab-pane fade show active" id="person" role="tabpanel" aria-labelledby="person-tab">
-								
+							<div class="tab-pane fade show active" id="person" role="tabpanel"
+								aria-labelledby="person-tab">
+
 							</div>
 
 							<div class="tab-pane fade" id="learning" role="tabpanel" aria-labelledby="learning">
-								
+								<div id="steps"></div>
+								<div id="step_generator"><div onclick="render_step()">Add entry</div></div>
+								<div id="step_generator"><div onclick="save_button()">Save entry</div></div>
 							</div>
 
 							<div class="tab-pane fade" id="results" role="tabpanel" aria-labelledby="results">
@@ -115,6 +130,8 @@
 	<script src="js/svg-loader.js"></script>
 
 	<!-- GymBeam JS -->
+	<script src="js/load_questions.js"></script>
 	<script src="js/script.js"></script>
 </body>
+
 </html>
