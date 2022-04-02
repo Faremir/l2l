@@ -62,10 +62,4 @@ const quiz_questions = [
             }
         ]
     },
-   
-        
-    
 ];
-
-
-
