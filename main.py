@@ -36,7 +36,6 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         http.server.SimpleHTTPRequestHandler.do_GET(self)
 
     def do_POST(self):
-
         self._set_json_headers()
         logging.info("In POST method!")
         data_string = self.rfile.read(int(self.headers['Content-Length']))
