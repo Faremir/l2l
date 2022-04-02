@@ -1,17 +1,17 @@
 a.logo .logo-title {
-	font-size: 22px;
+    font-size: 22px;
 }
 
 a.logo .sub-title {
-	font-size: 13px;
+    font-size: 13px;
 }
 
 .landing-page > div.content-bg-wrap {
-	z-index: -1;
+    z-index: -1;
 }
 
 .title-block {
-	margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 
 .landing-page .content-bg-wrap {
@@ -23,43 +23,43 @@ a.logo .sub-title {
 }
 
 .tab-pane-content {
-	padding: 25px;
+    padding: 25px;
 }
 
 .question {
-	margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 
 .question label,
 .question input {
-	display: inline-block;
+    display: inline-block;
 }
 
 .question input {
-	width: 20%;
+    width: 20%;
 }
 
 .question label {
-	font-size: 14px;
-	width: 80%;
+    font-size: 14px;
+    width: 80%;
 }
 
 .question label > img {
-	max-height: 120px;
+    max-height: 120px;
 }
 
 .tab-pane-content h4 {
-	margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .step {
-	margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 
 .step span {
-	font-size: 13px;
+    font-size: 13px;
 }
 
 .btn-send {
-	margin-left: 20px;
+    margin-left: 20px;
 }

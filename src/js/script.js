@@ -1,5 +1,3 @@
-
-
 (function ($) {
 
     // USE STRICT
@@ -61,23 +59,36 @@
     }
 
     function render_questions() {
+        function render_label(question, parent_el) {
+            let question_label = document.createElement("h4");
+            question_label.innerHTML = question.text;
+            $(parent_el).append(question_label);
+        }
+
+        function render_option(option, question) {
+            let input_element = document.createElement("input");
+            input_element.id = option.name;
+            input_element.type = "radio";
+            input_element.name = question.name;
+            input_element.value = option.name;
+            input_element.dataset.visual_value = option.visual_value;
+            input_element.dataset.static_value = option.static_value;
+            input_element.dataset.emotional_value = option.emotional_value;
+            input_element.dataset.interactive_value = option.interactive_value;
+            return input_element;
+        }
+
         questions.forEach(
             question => {
-                let question_label = document.createElement("h4");
-                question_label.innerHTML = question.text;
-                $("#insert-person").append(question_label);
+                let question_wrapper = document.createElement("div");
+                question_wrapper.className = question.name.toLowerCase()
+                render_label(question, question_wrapper);
+                $("#insert-person").append(question_wrapper);
                 question.options.forEach(option => {
                     let input_wrapper = document.createElement("div");
-                    let input_element = document.createElement("input");
                     input_wrapper.className = "col-12 question";
-                    input_element.id = option.name;
-                    input_element.type = "radio";
-                    input_element.name = question.name;
-                    input_element.value = option.name;
-                    input_element.dataset.visual_value = option.visual_value;
-                    input_element.dataset.static_value = option.static_value;
-                    input_element.dataset.emotional_value = option.emotional_value;
-                    input_element.dataset.interactive_value = option.interactive_value;
+
+                    let input_element = render_option(option, question);
                     $(input_wrapper).append(input_element);
                     let label_element = document.createElement("label");
                     label_element.for = input_element.id;
@@ -85,78 +96,77 @@
                         let img_element = document.createElement("img");
                         img_element.src = option.value;
                         $(label_element).append(img_element);
-                    }
-                    else {
+                    } else {
                         $(label_element).append(option.value);
                     }
                     $(input_wrapper).append(label_element);
-                    $("#insert-person").append(input_wrapper);
+                    $(question_wrapper).append(input_wrapper);
                 });
             });
     }
 
     function render_quiz() {
-		quiz_questions.forEach(
-			question => {
-				let question_label = document.createElement("span");
-				question_label.innerHTML = question.text;
-				$("#insert-results").append(question_label);
-				let input_wrapper = document.createElement("div");
-				let input_element = document.createElement("input");
-				input_element.id = question.name;
-				input_element.name = question.name;
-				input_element.type = "text";
-				$(input_wrapper).append(input_element);
-				let label_element = document.createElement("label");
-				label_element.for = input_element.id;
-				$(input_wrapper).append(label_element);
-				$("#insert-results").append(input_wrapper);
-			});
-		};
+        quiz_questions.forEach(
+            question => {
+                let question_label = document.createElement("span");
+                question_label.innerHTML = question.text;
+                $("#insert-results").append(question_label);
+                let input_wrapper = document.createElement("div");
+                let input_element = document.createElement("input");
+                input_element.id = question.name;
+                input_element.name = question.name;
+                input_element.type = "text";
+                $(input_wrapper).append(input_element);
+                let label_element = document.createElement("label");
+                label_element.for = input_element.id;
+                $(input_wrapper).append(label_element);
+                $("#insert-results").append(input_wrapper);
+            });
+    };
 
-	function process_form() {
+    function process_form() {
 	    let max_score = 0;
-		let visual_value = 0;
-		let static_value = 0;
-		let emotional_value = 0;
-		let interactive_value = 0;
-		let difference = 0;
-		let total_score = 0;
+        let visual_value = 0;
+        let static_value = 0;
+        let emotional_value = 0;
+        let interactive_value = 0;
+        let difference = 0;
+        let total_score = 0;
 //		console.log("Form", $('form').serializeArray());
-	
-		$('form').serializeArray().forEach(
-			answer => {
-				let question_object = questions.filter(x => x.name == answer.name)
-				let quiz_object = quiz_questions.filter(x => x.name == answer.name)
-//				console.log("je question/answer name", question_object, quiz_object, questions);
-				if (question_object.length > 0) {
-					let right_option = question_object[0].options.filter(x => x.name == answer.value)
-					visual_value += right_option[0].visual_value
-					static_value += right_option[0].static_value
-					emotional_value += right_option[0].emotional_value
-					interactive_value += right_option[0].interactive_value
 
-				}
-				if (quiz_object.length > 0) {
+        $('form').serializeArray().forEach(
+            answer => {
+                let question_object = questions.filter(x => x.name == answer.name)
+                let quiz_object = quiz_questions.filter(x => x.name == answer.name)
+//				console.log("je question/answer name", question_object, quiz_object, questions);
+                if (question_object.length > 0) {
+                    let right_option = question_object[0].options.filter(x => x.name == answer.value)
+                    visual_value += right_option[0].visual_value
+                    static_value += right_option[0].static_value
+                    emotional_value += right_option[0].emotional_value
+                    interactive_value += right_option[0].interactive_value
+
+                }
+                if (quiz_object.length > 0) {
 				    max_score += 100
-					if (Number(answer.value)) {
-						difference = Math.abs(Number(quiz_object[0].right_answer) - Number(answer.value))
-						let percentage = Number(quiz_object[0].right_answer) / Number(answer.value);
-						let percentage_difference = Math.abs(100 - (percentage * 100))
-						// if there is deviation but no big we will give points
-						if (percentage_difference < 20) {
-							total_score += (100) * ((100 - percentage_difference) / 100)
-						}
-					}
-					// if is answer a string only right answer is considered as valid
-					else {
-						if (quiz_object[0].right_answer == answer.value) {
-							total_score += 100;
-						}
-					}
-				}
-	
-			});
+                    if (Number(answer.value)) {
+                        difference = Math.abs(Number(quiz_object[0].right_answer) - Number(answer.value))
+                        let percentage = Number(quiz_object[0].right_answer) / Number(answer.value);
+                        let percentage_difference = Math.abs(100 - (percentage * 100))
+                        // if there is deviation but no big we will give points
+                        if (percentage_difference < 20) {
+                            total_score += (100) * ((100 - percentage_difference) / 100)
+                        }
+                    }
+                    // if is answer a string only right answer is considered as valid
+                    else {
+                        if (quiz_object[0].right_answer == answer.value) {
+                            total_score += 100;
+                        }
+                    }
+                }
+
+            });
 	    let steps = process_steps();
 		let value = {
 		"success_rate": (total_score / max_score ) * 100,
@@ -170,7 +180,7 @@
 		return value;
 
 
-	
+
 	};
 	function process_steps()
 	{
@@ -230,16 +240,57 @@
         render_questions();
         render_quiz();
 
-		$("#render_step_btn").on("click", function(){
-			render_step();
-		})
-		$("#save_step_btn").on("click", function(){
-			save_button();
-		})
-		$("#process_form_btn").on("click", function(){
+        $("#render_step_btn").on("click", function () {
+            render_step();
+        })
+        $("#save_step_btn").on("click", function () {
+            save_button();
+        })
+        $("#process_form_btn").on("click", function () {
 			var data = process_form();
             call_ajax(data);
-		})
+        })
+        $("input[type=radio]").on('change', function () {
+            let $checked = $("input[type=radio]:checked");
+            if ($checked.length === 4) {
+                let values = {
+                    'interactive_value': 0,
+                    'emotional_value': 0,
+                    'static_value': 0,
+                    'visual_value': 0,
+                };
+                $checked.each(function () {
+                        let data = $(this).data();
+                        values.interactive_value += data.interactive_value
+                        values.emotional_value += data.emotional_value
+                        values.static_value += data.static_value
+                        values.visual_value += data.visual_value
+                    }
+                );
+                const maxKey = _.max(Object.keys(values), o => values[o]);
+
+                var title = "Improve your learning";
+                var bg_color = 'unset';
+                console.log(maxKey);
+                switch (maxKey) {
+                    case 'interactive_value':
+
+                        break;
+                    case 'emotional_value':
+                        break;
+                    case 'static_value':
+                        title = "Improve your brain";
+                        break;
+                    case 'visual_value':
+                        bg_color = 'rgba(234, 88, 56, 0.95)';
+                        break;
+                }
+                $('.landing-content h1').text(title);
+                $('.content-bg-wrap').css({'background-color': bg_color});
+            }
+
+        })
+        $('input')
 
     });
 })(jQuery);
