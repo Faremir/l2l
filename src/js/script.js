@@ -4,11 +4,9 @@ var last_clicked = 0;
 
 function save_button() {
 	var timeNow = (new Date()).getTime();
-	let last_div = $('.step_class').last()
-	console.log(timeNow, last_clicked)
+	let last_div = $('.step').last()
 	let step_time_consumed = document.createElement("span");
 	step_time_consumed.innerHTML = (timeNow - last_clicked) / 1000
-	console.log(last_div);
 	$(last_div).append(step_time_consumed);
 	lastClicked = timeNow;
 }
@@ -16,10 +14,20 @@ function save_button() {
 function render_step() {
 	last_clicked = (new Date()).getTime();
 	let step_wrap = document.createElement("div");
-	step_wrap.className = "step_class";
+	step_wrap.className = "step";
+
+	let step_type_label = document.createElement("label");
+	step_type_label.innerHTML = "Choose type"
 	let step_type_input = document.createElement("select");
+
+	let step_value_label = document.createElement("label");
+	step_value_label.innerHTML = "Value"
 	let step_value_input = document.createElement("input");
+
+	let step_com_label = document.createElement("label");
+	step_com_label.innerHTML = "Comment"
 	let step_comment_input = document.createElement("input");
+
 	let options = ['seaching', 'reading', 'listening', 'writing']
 	options.forEach(option => {
 		let opt = document.createElement('option');
@@ -27,8 +35,11 @@ function render_step() {
 		opt.innerHTML = option;
 		step_type_input.appendChild(opt);
 	});
+	$(step_wrap).append(step_type_label);
 	$(step_wrap).append(step_type_input);
+	$(step_wrap).append(step_value_label);
 	$(step_wrap).append(step_value_input);
+	$(step_wrap).append(step_com_label);
 	$(step_wrap).append(step_comment_input);
 	$('#steps').append(step_wrap);
 }
@@ -36,16 +47,16 @@ function render_step() {
 function render_questions() {
 	questions.forEach(
 		question => {
-			let question_label = document.createElement("span");
+			let question_label = document.createElement("h4");
 			question_label.innerHTML = question.text;
-			$("#person").append(question_label);
+			$("#insert-person").append(question_label);
 			question.options.forEach(option => {
 				let input_wrapper = document.createElement("div");
 				let input_element = document.createElement("input");
 				input_wrapper.className = "col-12 question";
 				input_element.id = option.name;
 				input_element.type = "radio";
-				input_element.name = question.category;
+				input_element.name = question.name;
 				input_element.value = option.name;
 				input_element.dataset.visual_value = option.visual_value;
 				input_element.dataset.static_value = option.static_value;
@@ -57,14 +68,13 @@ function render_questions() {
 				if (["visual", "emotional"].includes(question.category)) {
 					let img_element = document.createElement("img");
 					img_element.src = option.value;
-					img_element.style.maxHeight = "10px";
 					$(label_element).append(img_element);
 				}
 				else {
 					$(label_element).append(option.value);
 				}
 				$(input_wrapper).append(label_element);
-				$("#person").append(input_wrapper);
+				$("#insert-person").append(input_wrapper);
 			});
 		});
 }
@@ -72,21 +82,24 @@ function render_questions() {
 function render_quiz() {
 	quiz_questions.forEach(
 		question => {
-			let question_label = document.createElement("span");
+			let question_label = document.createElement("h4");
 			question_label.innerHTML = question.text;
-			$("#results").append(question_label);
-			let input_wrapper = document.createElement("div");
-			let input_element = document.createElement("input");
-			input_element.id = question.name;
-			input_element.name = question.name;
-			input_element.type = "text";
-			$(input_wrapper).append(input_element);
-			let label_element = document.createElement("label");
-			label_element.for = input_element.id;
-			$(input_wrapper).append(label_element);
-			$("#results").append(input_wrapper);
+			$("#insert-results").append(question_label);
+			question.options.forEach(option => {
+				let input_wrapper = document.createElement("div");
+				let input_element = document.createElement("input");
+				input_element.id = option.name;
+				input_element.type = "radio";
+				input_element.name = question.category;
+				input_element.value = option.name;
+				$(input_wrapper).append(input_element);
+				let label_element = document.createElement("label");
+				label_element.for = input_element.id;
+				$(label_element).append(option.value);
+				$(input_wrapper).append(label_element);
+				$("#insert-results").append(input_wrapper);
+			});
 		});
-
 
 }
 function process_form() {
@@ -101,9 +114,9 @@ function process_form() {
 	$('form').serializeArray().forEach(
 
 		answer => {
-			let question_object = questions.filter(x=> x.category == answer.name)
-			let quiz_object = quiz_questions.filter(x=> x.name == answer.name)
-			console.log("je question/quic", question_object, quiz_object);	
+			let question_object = questions.filter(x => x.category == answer.name)
+			let quiz_object = quiz_questions.filter(x => x.name == answer.name)
+			console.log("je question/quic", question_object, quiz_object);
 			if (question_object.length > 0) {
 				console.log("Mam quest");
 				visual_value += question_object[0].visual_value;
@@ -113,25 +126,26 @@ function process_form() {
 			}
 			if (quiz_object.length > 0) {
 				console.log("Mam quiz");
-				if (Number(answer.value)){
+				if (Number(answer.value)) {
 					difference = Math.abs(Number(quiz_object[0].right_answer) - Number(answer.value))
 					let percentage = Number(quiz_object[0].right_answer) / Number(answer.value);
-					let percentage_difference = Math.abs(100 - (percentage *100))
+					let percentage_difference = Math.abs(100 - (percentage * 100))
 					// if there is deviation but no big we will give points
-					if (percentage_difference < 20){ 
-						total_score += (100) * ((100 - percentage_difference)/100)
+					if (percentage_difference < 20) {
+						total_score += (100) * ((100 - percentage_difference) / 100)
 					}
 				}
 				// if is answer a string only right answer is considered as valid
-				else{
-					if (quiz_object[0].right_answer == answer.value){
+				else {
+					if (quiz_object[0].right_answer == answer.value) {
 						total_score += 100;
 					}
 				}
 			}
+
 		});
-		console.log(total_score);
-		console.log(visual_value,static_value,emotional_value,interactive_value);
+	console.log(total_score);
+	console.log(visual_value, static_value, emotional_value, interactive_value);
 
 }
 function validate_answers() {

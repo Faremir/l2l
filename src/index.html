@@ -87,17 +87,34 @@
 					<form>
 						<div class="tab-content" id="registration-form-tabs-content">
 							<div class="tab-pane fade show active" id="person" role="tabpanel" aria-labelledby="person-tab">
-								<div class="row" id="insert-person"></div>
+								<div class="title h6">Just do not overthink this</div>
+								<div class="row tab-pane-content" id="insert-person"></div>
 							</div>
 
 							<div class="tab-pane fade" id="learning" role="tabpanel" aria-labelledby="learning">
-								<div id="steps"></div>
-								<div id="step_generator"><div onclick="render_step()">Add entry</div></div>
-								<div id="step_generator"><div onclick="save_button()">Save entry</div></div>
+								<div class="title h6">Your learning process</div>
+								<div class="row tab-pane-content">
+									<h2>Learn as much as possible about Belgium.</h2>
+									<h5>Write down your learning process.</h5>
+									<h5>You have 10 minutes.</h5>
+									<div id="steps"></div>
+									<div id="step_generator">
+										<a class="btn btn-primary" onclick="render_step()">Add entry</a>
+										<a class="btn btn-primary" onclick="save_button()">Save entry</a>
+									</div>
+								</div>
 							</div>
 
 							<div class="tab-pane fade" id="results" role="tabpanel" aria-labelledby="results">
+
+								
+							
+
+								<div class="title h6">Answer these questions</div>
+								<div class="row tab-pane-content" id="insert-results">
+								</div>
 								<div onclick="process_form()" class="btn btn-purple btn-lg full-width">Send</div >
+
 							</div>
 						</div>
 					</form>
@@ -121,6 +138,7 @@
 	<script src="js/libs/jquery.magnific-popup.min.js"></script>
 
 	<script src="js/main.js"></script>
+	<script src="js/test.js"></script>
 	<script src="js/libs-init/libs-init.js"></script>
 
 	<script src="Bootstrap/dist/js/bootstrap.bundle.min.js"></script>

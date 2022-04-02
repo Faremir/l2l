@@ -10,6 +10,10 @@ a.logo .sub-title {
 	z-index: -1;
 }
 
+.title-block {
+	margin-bottom: 15px;
+}
+
 .landing-page .content-bg-wrap {
     background-image: none;
 }
@@ -18,12 +22,12 @@ a.logo .sub-title {
     height: calc(100% / 3)
 }
 
-.tab-pane {
-	padding: 15px;
+.tab-pane-content {
+	padding: 25px;
 }
 
 .question {
-	margin-bottom: 30px;
+	margin-bottom: 15px;
 }
 
 .question label,
@@ -36,9 +40,26 @@ a.logo .sub-title {
 }
 
 .question label {
+	font-size: 14px;
 	width: 80%;
 }
 
 .question label > img {
-	max-height: 140px;
+	max-height: 120px;
+}
+
+.tab-pane-content h4 {
+	margin-bottom: 20px;
+}
+
+.step {
+	margin-bottom: 15px;
+}
+
+.step span {
+	font-size: 13px;
+}
+
+.btn-send {
+	margin-left: 20px;
 }
