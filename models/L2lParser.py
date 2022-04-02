@@ -1,7 +1,7 @@
 import json
 from typing import Callable, Optional
 
-from .LearningProcess import LearningProcesses
+from .LearningProcess import LearningProcess, LearningProcesses
 
 
 class L2l_Parser:
@@ -34,9 +34,10 @@ class L2l_Parser:
             self.lp_list.append(process)
 
     def parse(self, data):
-        process = self.get_json_to_object(data, LearningProcesses.from_dict)
-
-        return self.determine_closest(process, 10)
+        process = self.get_json_to_object(data, LearningProcess.from_dict)
+        result = self.determine_closest(process, 10)
+        self.lp_list.append(process)
+        return json.dumps(str([ob.__dict__ for ob in result]))
 
     def determine_closest(self, current_process: Optional[object], max_limit: int):
         attr_differences = self.get_attr_diff(current_process)

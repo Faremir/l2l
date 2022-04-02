@@ -1115,9 +1115,11 @@ var test_case = {
             data: JSON.stringify(test_case),
             success: function (data, textStatus, jqXHR) {
                 //data - response from server
+                console.log(data, textStatus, jqXHR);
             },
             error: function (jqXHR, textStatus, errorThrown) {
 
+                console.log(jqXHR, textStatus, errorThrown);
             }
         });
 

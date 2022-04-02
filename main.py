@@ -26,40 +26,37 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=DIRECTORY, **kwargs)
 
-    def _set_json_headers(self):
-        self.send_response(200)
-        self.send_header('Content-type', 'application/json')
-        self.end_headers()
-
     def do_GET(self):
         if self.path.startswith('/kill_server'):
             self.interrupt()
         http.server.SimpleHTTPRequestHandler.do_GET(self)
 
     def do_POST(self):
-        self._set_json_headers()
         data_string = self.rfile.read(int(self.headers['Content-Length']))
 
+        result = ""
         if self.path.startswith('/prepare_data'):
             self.processor.prepare_test(data_string)
         elif self.path.startswith('/determine'):
-            self.processor.parse(data_string)
+            result = self.processor.parse(data_string)
 
         STORED_PROCESSES.sort(key=lambda process: process.overall_success_rate)
 
+        response = result.encode()
         self.send_response(200)
+        self.send_header('Content-Type', 'application/json')
         self.end_headers()
+        self.wfile.write(response)
 
-        return
 
-    def interrupt(self):
-        print("Server is going down, run it again manually!")
+def interrupt(self):
+    print("Server is going down, run it again manually!")
 
-        def kill_server(server):
-            server.shutdown()
+    def kill_server(server):
+        server.shutdown()
 
-        _thread.start_new_thread(kill_server, (httpd,))
-        self.send_error(500)
+    _thread.start_new_thread(kill_server, (httpd,))
+    self.send_error(500)
 
 
 if __name__ == '__main__':
