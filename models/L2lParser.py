@@ -1,7 +1,7 @@
 import json
 from typing import Callable, Optional
 
-from .LearningProcess import LearningProcess, LearningProcesses
+from .LearningProcess import LearningProcess
 from .TestGenerator import Factory
 
 
@@ -32,13 +32,21 @@ class L2l_Parser:
     def prepare_test(self):
         plf = Factory()
         test_data = plf.generate_lp()
-        processes = self.get_json_to_object(test_data, LearningProcesses.from_dict)
-        for process in processes.lps:
+
+        items = self.get_json_to_object(test_data)
+        items = items.get('lps') or []
+        for item_data in items:
+            encoded_item = json.dumps(item_data)
+
+            print(encoded_item)
+            process = self.get_json_to_object(encoded_item, LearningProcess.from_dict)
+            process.process_steps()
             self.lp_list.append(process)
         return json.dumps(str([lp.name for lp in self.lp_list]))
 
     def parse(self, data):
         process = self.get_json_to_object(data, LearningProcess.from_dict)
+        process.process_steps()
         result = self.determine_closest(process, 5)
         self.lp_list.append(process)
         return json.dumps(str([ob.__dict__ for ob in result]))

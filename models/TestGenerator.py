@@ -6,11 +6,11 @@ import names
 ASSIGNMENT_TYPE = 'initial_assignment'
 STEP_TYPES = ['searching', 'reading', 'looking', 'listening', 'writing']
 ATTR_TYPES = {
-    'searching': 'visual',
-    'reading':   'visual',
-    'writing':   'interactive',
-    'listening': 'emotional',
-    'looking':   'static',
+    'searching': 'visual_value',
+    'reading':   'visual_value',
+    'writing':   'interactive_value',
+    'listening': 'emotional_value',
+    'looking':   'static_value',
 }
 KEYWORDS = [names.get_first_name() for _ in range(100)]
 WRITINGS = [
