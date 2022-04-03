@@ -49,6 +49,7 @@
 						Continous changes that make your brain work different.<br/>
 						With network that will improve your learning process.
 					</p>
+					<h6>Watch out - website will try to communicate with you!</h6>
 				</div>
 			</div>
 
@@ -67,7 +68,7 @@
 						</li>
 
 						<li class="nav-item" role="presentation">
-							<a class="nav-link" id="learning-icon" data-bs-toggle="tab" href="#learning" role="tab"
+							<a class="nav-link disabled" id="learning-icon" data-bs-toggle="tab" href="#learning" role="tab"
 								aria-controls="learning" aria-selected="false">
 								<svg class="olymp-register-icon">
 									<use xlink:href="#olymp-plus-icon"></use>
@@ -76,7 +77,7 @@
 						</li>
 
 						<li class="nav-item" role="presentation">
-							<a class="nav-link" id="results-icon" data-bs-toggle="tab" href="#results" role="tab"
+							<a class="nav-link disabled" id="results-icon" data-bs-toggle="tab" href="#results" role="tab"
 								aria-controls="results" aria-selected="false">
 								<svg class="olymp-register-icon">
 									<use xlink:href="#olymp-plus-icon"></use>
@@ -94,23 +95,22 @@
 							</div>
 
 							<div class="tab-pane fade" id="learning" role="tabpanel" aria-labelledby="learning">
-								<div class="title h3">In 10 minutes learn as much as possible about Belgium.</div>
+								<div class="title h3">In <span id="ten-countdown"></span> minutes learn as much as possible about Belgium.</div>
 								<div class="row tab-pane-content">
 									<h5>Write down your learning process.</h5>
 									<p class="mb-3">Or share your screen and the way how do you learn will be automatically processed!</p>
 									<div id="steps"></div>
 									<div id="step_generator">
-										<a id="render_step_btn" class="btn btn-primary" >Add entry</a>
-										<a id="save_step_btn" class="btn btn-primary" >Save entry</a>
+										<a id="render_step_btn" class="btn btn-primary">+ Add</a>
+										<a id="save_step_btn" class="btn btn-primary">Save</a>
 									</div>
 								</div>
 							</div>
 
 							<div class="tab-pane fade" id="results" role="tabpanel" aria-labelledby="results">
 								<div class="title h3">Please answer this quiz...</div>
-								<div class="row tab-pane-content" id="insert-results">
-								</div>
-								<div id="process_form_btn" class="btn btn-purple btn-lg full-width">Send</div >
+								<div class="row tab-pane-content" id="insert-results"></div>
+								<div id="process_form_btn" class="btn btn-purple btn-lg">Send</div>
 							</div>
 						</div>
 					</form>

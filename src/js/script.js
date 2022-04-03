@@ -1,5 +1,4 @@
 (function ($) {
-
     // USE STRICT
     "use strict";
 
@@ -13,7 +12,6 @@
     //----------------------------------------------------/
     // Quiz Methods
     //----------------------------------------------------/
-
     function save_button() {
         var timeNow = (new Date()).getTime();
         let last_div = $('.step').last()
@@ -42,6 +40,7 @@
         step_com_label.innerHTML = "Comment"
         let step_comment_input = document.createElement("input");
         step_comment_input.className = 'step_comment';
+
         let options = ['seaching', 'reading', 'listening', 'writing'];
         options.forEach(option => {
             let opt = document.createElement('option');
@@ -49,6 +48,7 @@
             opt.innerHTML = option;
             step_type_input.appendChild(opt);
         });
+
         $(step_wrap).append(step_type_label);
         $(step_wrap).append(step_type_input);
         $(step_wrap).append(step_value_label);
@@ -87,7 +87,6 @@
                 question.options.forEach(option => {
                     let input_wrapper = document.createElement("div");
                     input_wrapper.className = "col-12 question";
-
                     let input_element = render_option(option, question);
                     $(input_wrapper).append(input_element);
                     let label_element = document.createElement("label");
@@ -108,7 +107,7 @@
     function render_quiz() {
         quiz_questions.forEach(
             question => {
-                let question_label = document.createElement("span");
+                let question_label = document.createElement("h4");
                 question_label.innerHTML = question.text;
                 $("#insert-results").append(question_label);
                 let input_wrapper = document.createElement("div");
@@ -132,13 +131,11 @@
         let interactive_value = 0;
         let difference = 0;
         let total_score = 0;
-//		console.log("Form", $('form').serializeArray());
 
         $('form').serializeArray().forEach(
             answer => {
                 let question_object = questions.filter(x => x.name == answer.name)
                 let quiz_object = quiz_questions.filter(x => x.name == answer.name)
-//				console.log("je question/answer name", question_object, quiz_object, questions);
                 if (question_object.length > 0) {
                     let right_option = question_object[0].options.filter(x => x.name == answer.value)
                     visual_value += right_option[0].visual_value
@@ -169,44 +166,31 @@
             });
 	    let steps = process_steps();
 		let value = {
-		"success_rate": (total_score / max_score ) * 100,
-		"visual_value":visual_value,
-		"static_value":static_value,
-		"emotional_value":emotional_value,
-		"interactive_value":interactive_value,
-		"steps": steps
+    		"success_rate": (total_score / max_score ) * 100,
+    		"visual_value":visual_value,
+    		"static_value":static_value,
+    		"emotional_value":emotional_value,
+    		"interactive_value":interactive_value,
+    		"steps": steps
 		}
 		console.log(value)
 		return value;
+    };
 
-
-
-	};
-	function process_steps()
-	{
-	 let step_count = 1;
-     let step_elements = $('.step');
-     let steps_json = []
-     $('.step').each(function(obj, element) {
-       console.log("object", element);
-       console.log("VAlues",
-     $(element).children(".step_value")[0].value,
-     $(element).children(".step_comment")[0].value,
-     $(element).children(".step_type")[0].value,
-     $(element).children("span")[0].innerText
-     );
-     steps_json.push(
-     {
-        "step_count": step_count,
-        "step_value":  $(element).children(".step_value")[0].value,
-        "step_comment":  $(element).children(".step_comment")[0].value,
-        "step_type":  $(element).children(".step_type")[0].value,
-        "step_time": $(element).children("span")[0].innerText
-
-     });
-
-    });
- return steps_json
+	function process_steps() {
+        let step_count = 1;
+        let step_elements = $('.step');
+        let steps_json = []
+        $('.step').each(function(obj, element) {
+            steps_json.push({
+                "step_count": step_count,
+                "step_value":  $(element).children(".step_value")[0].value,
+                "step_comment":  $(element).children(".step_comment")[0].value,
+                "step_type":  $(element).children(".step_type")[0].value,
+                "step_time": $(element).children("span")[0].innerText
+            });
+        });
+        return steps_json
 	}
 
     function call_ajax(data) {
@@ -230,12 +214,39 @@
         });
     }
 
-    /* -----------------------------
-     * On DOM ready functions
-     * ---------------------------*/
+    function countdown(elementName, minutes, seconds) {
+        var element, endTime, hours, mins, msLeft, time;
 
+        function twoDigits(n){
+            return (n <= 9 ? "0" + n : n);
+        }
+
+        function updateTimer() {
+            msLeft = endTime - (+new Date);
+            if (msLeft < 1000) {
+                element.innerHTML = "00:00";
+                $('#learning-icon').addClass('disabled');
+                $('#results-icon').removeClass('disabled');
+                $('#render_step_btn').addClass('disabled');
+                $('#save_step_btn').addClass('disabled');
+            } else {
+                time = new Date( msLeft );
+                hours = time.getUTCHours();
+                mins = time.getUTCMinutes();
+                element.innerHTML = (hours ? hours + ':' + twoDigits( mins ) : mins) + ':' + twoDigits(time.getUTCSeconds());
+                setTimeout(updateTimer, time.getUTCMilliseconds() + 500);
+            }
+        }
+
+        element = document.getElementById(elementName);
+        endTime = (+new Date) + 1000 * (60 * minutes + seconds) + 500;
+        updateTimer();
+    }
+
+    //----------------------------------------------------/
+    // On DOM ready functions
+    //----------------------------------------------------/
     $document.ready(function () {
-
         //Render Questions & Quiz
         render_questions();
         render_quiz();
@@ -259,6 +270,7 @@
                     'static_value': 0,
                     'visual_value': 0,
                 };
+
                 $checked.each(function () {
                         let data = $(this).data();
                         values.interactive_value += data.interactive_value
@@ -271,10 +283,9 @@
 
                 var title = "Improve your learning";
                 var bg_color = 'unset';
-                console.log(maxKey);
+
                 switch (maxKey) {
                     case 'interactive_value':
-
                         break;
                     case 'emotional_value':
                         break;
@@ -285,13 +296,16 @@
                         bg_color = 'rgba(234, 88, 56, 0.95)';
                         break;
                 }
+
                 $('.landing-content h1').text(title);
                 $('.content-bg-wrap').css({'background-color': bg_color});
             }
-
+            if ($checked.length === 5) {
+                $('#person-icon').addClass('disabled');
+                $('#learning-icon').removeClass('disabled');
+                countdown("ten-countdown", 1, 0);
+            }
         })
         $('input')
-
     });
 })(jQuery);
-

@@ -148,7 +148,7 @@ const questions = [
             },
             {
                 "name":"think",
-                "value": "Scream of of joy",
+                "value": "Scream out of joy",
                 "visual_value": 3,
                 "static_value": 2,
                 "emotional_value": 4,
