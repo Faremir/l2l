@@ -234,10 +234,10 @@
                     if ('content' in document.createElement('template')) {
                     console.log("Naslo mi template")
                     var template = document.querySelector('#end_of_transaction_block');
-                data_json.forEach(lp => {
-                console.log("LP", lp);
+                    data_json.forEach(lp => {
+                    console.log("LP", lp);
                  var clone = template.content.cloneNode(true);
-                    var name_title = clone.querySelectorAll(".h3.post-title");
+                    let name_title = clone.querySelectorAll(".h3.post-title");
                     name_title[0].textContent = lp.name;
                     $('#rec_lp').append(clone);
 
