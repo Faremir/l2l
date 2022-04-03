@@ -36,7 +36,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
         result = ""
         if self.path.startswith('/prepare_data'):
-            result = self.processor.prepare_test(data_string)
+            result = self.processor.prepare_test()
         elif self.path.startswith('/determine'):
             result = self.processor.parse(data_string)
 

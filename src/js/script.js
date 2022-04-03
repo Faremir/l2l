@@ -163,24 +163,29 @@
         });
     }
 
+    var first_names = ["Jirka", "Martin", "Daniel"];
+    var last_names = ["Odoo", "Gymbeam", "Dedoles"];
+
     function process_form() {
         let max_score = 0;
-        let visual_value = 0;
-        let static_value = 0;
-        let emotional_value = 0;
-        let interactive_value = 0;
         let difference = 0;
-        let total_score = 0;
-
+        let user_id = 'undefined';
+        let searchParams = new URLSearchParams(window.location.search)
+        if (searchParams.has('user_id')) {
+            user_id = searchParams.get('user_id')
+        }
+        var name_id = Math.floor((Math.random() * 3));
+        var surname_id = Math.floor((Math.random() * 3));
         let value = {
+            "lp_name": "LP " + Math.floor((Math.random() * 100)),
             "overall_success_rate": 0,
             "visual_value": 0,
             "static_value": 0,
             "emotional_value": 0,
             "interactive_value": 0,
             "steps": false,
-            "name": "User created",
-            "user_id": "Mitchel Admin"
+            "name": first_names[name_id] + " " + last_names[surname_id],
+            "user_id": user_id
         }
 
 
@@ -220,8 +225,7 @@
             }
 
         });
-        let steps = process_steps();
-        value['steps'] = steps
+        value['steps'] = process_steps()
 //        let value = {
 //            "overall_success_rate": (total_score / max_score) * 100,
 //            "visual_value": visual_value,
@@ -236,9 +240,16 @@
         return value;
     }
 
+    const ATTRTYPES = {
+        'searching': 'visual',
+        'reading': 'visual',
+        'writing': 'interactive',
+        'listening': 'emotional',
+        'looking': 'static',
+    }
+
     function process_steps() {
         let step_count = 1;
-        let step_elements = $('.step');
         let steps_json = []
         let step_time = 0
         $('.step').each(function (obj, element) {
@@ -246,11 +257,12 @@
                 step_time = $(element).children("span")[0].innerText;
             }
             steps_json.push({
-                "step_count": step_count,
-                "step_value": $(element).children(".step_value")[0].value,
-                "step_comment": $(element).children(".step_comment")[0].value,
-                "step_type": $(element).children(".step_type")[0].value,
-                "step_time": step_time
+                "id": step_count++,
+                "type": $(element).children(".step_type")[0].value,
+                "value": $(element).children(".step_value")[0].value,
+                "comment": $(element).children(".step_comment")[0].value,
+                "time": step_time,
+                "attr_type": ATTRTYPES[$(element).children(".step_type")[0].value],
             });
         });
         return steps_json
@@ -274,8 +286,8 @@
                             let user_name = clone.querySelectorAll(".post__author-name");
                             let text = clone.querySelectorAll(".text_lp");
                             let json_dump = clone.querySelectorAll("#json_dump");
-                            name_title[0].textContent = lp.name;
-                            user_name[0].textContent = lp.user_id;
+                            name_title[0].textContent = lp.lp_name;
+                            user_name[0].textContent = lp.name;
                             text[0].textContent = "This is the text about my learning process.";
                             json_dump[0].textContent = JSON.stringify(lp, null, 2);
                             $('#rec_lp').append(clone);
@@ -333,6 +345,7 @@
         //Render Questions & Quiz
         render_questions();
         render_quiz();
+
         let steps = 0;
         $("#render_step_btn").on("click", function () {
             let add_new = true
@@ -384,7 +397,6 @@
             }
         }
 
-
         $('.container').on('mouseover', '.growing', function () {
             let font_size = parseInt($(this).css('font-size'), 10);
             $(this).animate(
@@ -414,5 +426,18 @@
                 countdown("ten-countdown", 0, 5);
             }
         });
+
+        $('.preloader-data').on('click', function () {
+            $.ajax({
+                url: "/prepare_data",
+                type: "POST",
+                success: function (data, textStatus, jqXHR) {
+                    console.log('Data uploaded', data);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+
+                }
+            })
+        })
     });
 })(jQuery);

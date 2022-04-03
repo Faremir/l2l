@@ -5,10 +5,18 @@ import names
 
 ASSIGNMENT_TYPE = 'initial_assignment'
 STEP_TYPES = ['searching', 'reading', 'looking', 'listening', 'writing']
+ATTR_TYPES = {
+    'searching': 'visual',
+    'reading':   'visual',
+    'writing':   'interactive',
+    'listening': 'emotional',
+    'looking':   'static',
+}
 KEYWORDS = [names.get_first_name() for _ in range(100)]
 WRITINGS = [
     f"{names.get_first_name()} {names.get_first_name()} {names.get_first_name()} "
-    f"{names.get_first_name()}" for _ in range(55)]
+    f"{names.get_first_name()}" for _ in range(55)
+]
 
 
 class Serializable:
@@ -88,7 +96,8 @@ class Factory:
             step.value = random.randint(1, 10)
         elif choice_type == 'writing':
             step.value = random.choice(KEYWORDS)
-        step.time = random.randint(15,183)
+        step.time = random.randint(15, 183)
+        step.attr_type = ATTR_TYPES[step.type]
         return step
 
     def generate_steps(self):
@@ -103,11 +112,17 @@ class Factory:
     def generate_lp(self):
         names_list = list(self.generate_names())
         steps_list = list(self.generate_steps())
+        step_id = 1
+        for step in steps_list:
+            step.id = step_id
+            step_id += 1
         lp_list = []
         for i in range(25):
             new = LP()
-            new.name = "LP " + str(i)
-            new.user_id = random.choice(names_list)
+            new.lp_name = "LP " + str(i)
+            user_name = random.choice(names_list)
+            new.name = user_name
+            new.user_id = names_list.index(user_name)
             new.visual_value = random.randint(0, 4)
             new.static_value = random.randint(0, 4)
             new.emotional_value = random.randint(0, 4)
@@ -122,12 +137,7 @@ class Factory:
                     assignment.steps.append(new_step)
             new.assignments.append(assignment)
             lp_list.append(new)
-            print(new.assignments)
 
         random.shuffle(lp_list)
         lplist = LPList(lp_list)
-        print(lplist)
-
-
-plf = Factory()
-plf.generate_lp()
+        return str(lplist)

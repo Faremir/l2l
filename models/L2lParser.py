@@ -2,6 +2,7 @@ import json
 from typing import Callable, Optional
 
 from .LearningProcess import LearningProcess, LearningProcesses
+from .TestGenerator import Factory
 
 
 class L2l_Parser:
@@ -28,8 +29,10 @@ class L2l_Parser:
         except json.decoder.JSONDecodeError:
             return None
 
-    def prepare_test(self, data):
-        processes = self.get_json_to_object(data, LearningProcesses.from_dict)
+    def prepare_test(self):
+        plf = Factory()
+        test_data = plf.generate_lp()
+        processes = self.get_json_to_object(test_data, LearningProcesses.from_dict)
         for process in processes.lps:
             self.lp_list.append(process)
         return json.dumps(str([lp.name for lp in self.lp_list]))
@@ -48,6 +51,7 @@ class L2l_Parser:
         result = [lp for lp in result if lp.user_id != current_process.user_id]
         total = len(result)
         limit = max_limit if max_limit <= total else total
+
         return result[:limit]
 
     def get_attr_diff(self, current_process: Optional[object]):
