@@ -30,22 +30,22 @@
     }
 
     function get_highest_attr($checked) {
-            let values = {
-                'interactive_value': 0,
-                'emotional_value': 0,
-                'static_value': 0,
-                'visual_value': 0,
-            };
-            $checked.each(function () {
-                    let data = $(this).data();
-                    values.interactive_value += data.interactive_value
-                    values.emotional_value += data.emotional_value
-                    values.static_value += data.static_value
-                    values.visual_value += data.visual_value
-                }
-            );
-            return _.max(Object.keys(values), o => values[o]);
-        }
+        let values = {
+            'interactive_value': 0,
+            'emotional_value': 0,
+            'static_value': 0,
+            'visual_value': 0,
+        };
+        $checked.each(function () {
+                let data = $(this).data();
+                values.interactive_value += data.interactive_value
+                values.emotional_value += data.emotional_value
+                values.static_value += data.static_value
+                values.visual_value += data.visual_value
+            }
+        );
+        return _.max(Object.keys(values), o => values[o]);
+    }
 
     function render_step(current_step) {
         $last_clicked = (new Date()).getTime();
@@ -194,18 +194,10 @@
                 value["emotional_value"] += right_option[0].emotional_value
                 value["interactive_value"] += right_option[0].interactive_value
 
-                if(answer.name == 'Check'){
-                let $checked = $("input[type=radio]:checked");
-                const maxKey = get_highest_attr($checked);
-                console.log("Right options, maxkey", right_option, maxKey)
-                if (right_option[0].name == 'yes'){
-                console.log("priopocitavam");
-                }
-                    value[maxKey] += 1;
-                }
-                 if (right_option[0].name == 'no'){
-                 console.log("odpocitavam");
-                    value[maxKey] -= 1
+                if (answer.name == 'Check') {
+                    let $checked = $("input[type=radio]:checked");
+                    const maxKey = get_highest_attr($checked);
+                    value[maxKey] += right_option[0].name == 'yes' ? 1 : -1
                 }
 
 
@@ -252,7 +244,7 @@
         let steps_json = []
         let step_time = 0
         $('.step').each(function (obj, element) {
-            if ($(element).children("span")[0]){
+            if ($(element).children("span")[0]) {
                 step_time = $(element).children("span")[0].innerText;
             }
             steps_json.push({
@@ -275,7 +267,7 @@
                 data = data.replace(/'/g, '"');
                 let data_json = JSON.parse(data);
                 console.log("TOTO JE JSON", data_json);
-                 $('#main').load('network.html', function () {
+                $('#main').load('network.html', function () {
                     if ('content' in document.createElement('template')) {
                         var template = document.querySelector('#end_of_transaction_block');
                         data_json.forEach(lp => {
@@ -400,7 +392,8 @@
             $(this).animate(
                 {'fontSize': font_size + 10 + "px"},
                 'easeInOutCubic',
-                function () {}
+                function () {
+                }
             );
         })
 
