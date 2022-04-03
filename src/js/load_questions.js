@@ -164,18 +164,18 @@ const questions = [
             {
                 "name":"yes",
                 "value": "Yes, this website is communicating with me",
-                "visual_value": 4,
-                "static_value": 4,
-                "emotional_value": 4,
-                "interactive_value": 4
+                "visual_value": 0,
+                "static_value": 0,
+                "emotional_value": 0,
+                "interactive_value": 0
             },
             {
                 "name":"no",
                 "value": "No, nothing changed",
-                "visual_value": 1,
-                "static_value": 1,
-                "emotional_value": 1,
-                "interactive_value": 1
+                "visual_value": 0,
+                "static_value": 0,
+                "emotional_value": 0,
+                "interactive_value": 0
             }
         ]
     }

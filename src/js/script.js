@@ -29,6 +29,24 @@
         return true;
     }
 
+    function get_highest_attr($checked) {
+            let values = {
+                'interactive_value': 0,
+                'emotional_value': 0,
+                'static_value': 0,
+                'visual_value': 0,
+            };
+            $checked.each(function () {
+                    let data = $(this).data();
+                    values.interactive_value += data.interactive_value
+                    values.emotional_value += data.emotional_value
+                    values.static_value += data.static_value
+                    values.visual_value += data.visual_value
+                }
+            );
+            return _.max(Object.keys(values), o => values[o]);
+        }
+
     function render_step(current_step) {
         $last_clicked = (new Date()).getTime();
         let step_wrap = document.createElement("div");
@@ -154,15 +172,42 @@
         let difference = 0;
         let total_score = 0;
 
+        let value = {
+            "overall_success_rate": 0,
+            "visual_value": 0,
+            "static_value": 0,
+            "emotional_value": 0,
+            "interactive_value": 0,
+            "steps": false,
+            "name": "User created",
+            "user_id": "Mitchel Admin"
+        }
+
+
         $('form').serializeArray().forEach(answer => {
             let question_object = questions.filter(x => x.name === answer.name)
             let quiz_object = quiz_questions.filter(x => x.name === answer.name)
             if (question_object.length > 0) {
                 let right_option = question_object[0].options.filter(x => x.name === answer.value)
-                visual_value += right_option[0].visual_value
-                static_value += right_option[0].static_value
-                emotional_value += right_option[0].emotional_value
-                interactive_value += right_option[0].interactive_value
+                value["visual_value"] += right_option[0].visual_value
+                value["static_value"] += right_option[0].static_value
+                value["emotional_value"] += right_option[0].emotional_value
+                value["interactive_value"] += right_option[0].interactive_value
+
+                if(answer.name == 'Check'){
+                let $checked = $("input[type=radio]:checked");
+                const maxKey = get_highest_attr($checked);
+                console.log("Right options, maxkey", right_option, maxKey)
+                if (right_option[0].name == 'yes'){
+                console.log("priopocitavam");
+                }
+                    value[maxKey] += 1;
+                }
+                 if (right_option[0].name == 'no'){
+                 console.log("odpocitavam");
+                    value[maxKey] -= 1
+                }
+
 
             }
             if (quiz_object.length > 0) {
@@ -173,30 +218,31 @@
                     let percentage_difference = Math.abs(100 - (percentage * 100))
                     // if there is deviation but no big we will give points
                     if (percentage_difference < 20) {
-                        total_score += (100) * ((100 - percentage_difference) / 100)
+                        value["total_score"] += (100) * ((100 - percentage_difference) / 100)
                     }
                 }
                 // if is answer a string only right answer is considered as valid
                 else {
                     if (quiz_object[0].right_answer == answer.value) {
-                        total_score += 100;
+                        value["total_score"] += 100;
                     }
                 }
             }
 
         });
         let steps = process_steps();
-        let value = {
-            "overall_success_rate": (total_score / max_score) * 100,
-            "visual_value": visual_value,
-            "static_value": static_value,
-            "emotional_value": emotional_value,
-            "interactive_value": interactive_value,
-            "steps": steps,
-            "name": "User created",
-            "user_id": "Mitchel Admin"
-        }
-        console.log(value)
+        value['steps'] = steps
+//        let value = {
+//            "overall_success_rate": (total_score / max_score) * 100,
+//            "visual_value": visual_value,
+//            "static_value": static_value,
+//            "emotional_value": emotional_value,
+//            "interactive_value": interactive_value,
+//            "steps": steps,
+//            "name": "User created",
+//            "user_id": "Mitchel Admin"
+//        }
+        console.log("Toto je value co vraciam", value)
         return value;
     }
 
@@ -348,23 +394,6 @@
             }
         }
 
-        function get_highest_attr($checked) {
-            let values = {
-                'interactive_value': 0,
-                'emotional_value': 0,
-                'static_value': 0,
-                'visual_value': 0,
-            };
-            $checked.each(function () {
-                    let data = $(this).data();
-                    values.interactive_value += data.interactive_value
-                    values.emotional_value += data.emotional_value
-                    values.static_value += data.static_value
-                    values.visual_value += data.visual_value
-                }
-            );
-            return _.max(Object.keys(values), o => values[o]);
-        }
 
         $('.container').on('mouseover', '.growing', function () {
             let font_size = parseInt($(this).css('font-size'), 10);
