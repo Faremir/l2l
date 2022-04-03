@@ -38,24 +38,24 @@ class JsonDecObj(ABC):
 
     def flatten_list(self, attr_name, key_name) -> None:
         """
-        Flatten list of MagentoObject to list of values.
+        Flatten list of JsonDecObj to list of values.
 
-        List format: [MagentoObject(key_name: value), ...]
+        List format: [JsonDecObj(key_name: value), ...]
         Output format: list(value)
 
-        :param attr_name: Current instance attribute containing list of MagentoObjects
+        :param attr_name: Current instance attribute containing list of JsonDecObjs
         :param key_name: Name of attribute containing output dictionary key
         :param value_name: Name of attribute containing output dictionary value
 
         :return: None
         """
-        temp_attr = [getattr(attr, key_name) for attr in getattr(self, attr_name, MagentoObject)]
+        temp_attr = [getattr(attr, key_name) for attr in getattr(self, attr_name, JsonDecObj)]
         setattr(self, attr_name, temp_attr)
 
     def __getattr__(self, name):
         """Override without exceptions."""
         try:
-            return super(MagentoObject, self).__getattr__(self, name)
+            return super(JsonDecObj, self).__getattr__(self, name)
         except AttributeError:
             return None
 
