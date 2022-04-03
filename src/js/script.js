@@ -202,13 +202,17 @@
         let step_count = 1;
         let step_elements = $('.step');
         let steps_json = []
+        let step_time = 0
         $('.step').each(function (obj, element) {
+            if ($(element).children("span")[0]){
+                step_time = $(element).children("span")[0].innerText;
+            }
             steps_json.push({
                 "step_count": step_count,
                 "step_value": $(element).children(".step_value")[0].value,
                 "step_comment": $(element).children(".step_comment")[0].value,
                 "step_type": $(element).children(".step_type")[0].value,
-                "step_time": $(element).children("span")[0].innerText
+                "step_time": step_time
             });
         });
         return steps_json
@@ -221,11 +225,14 @@
             type: "POST",
             data: JSON.stringify(data),
             success: function (data, textStatus, jqXHR) {
-                //data - response from server
-                console.log(data, textStatus, jqXHR);
-                console.log("succeets", textStatus);
+                console.log("TOT SU Daya",data);
+                let data_json = JSON.parse( data );
+                data_json.forEach(lp => {
+                console.log("LP", lp);
+                });
+
                 $('#main').load('network.html', function () {
-                    $('.main-header-content').html('<p>data</p>')
+                    $('#rec_lp').html('<div class="ui-block">Here I am</div>')
                 });
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -235,6 +242,8 @@
 
                     $('.main-header-content').html('<p>error</p>')
                 });
+                console.log("error");
+                $('#main').load('network.html');
             }
         });
     }
@@ -376,7 +385,7 @@
             if ($checked.length === 5) {
                 $('#person-icon').addClass('disabled');
                 $('#learning-icon').removeClass('disabled');
-                countdown("ten-countdown", 0, 12);
+                countdown("ten-countdown", 0, 10);
             }
         });
     });
