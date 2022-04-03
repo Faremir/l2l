@@ -193,7 +193,8 @@
             "emotional_value": emotional_value,
             "interactive_value": interactive_value,
             "steps": steps,
-            "name": "User created"
+            "name": "User created",
+            "user_id": "Mitchel Admin"
         }
         console.log(value)
         return value;
@@ -220,41 +221,34 @@
     }
 
     function call_ajax(data) {
-    console.log("TOTO SU DAYA", data);
         $.ajax({
             url: "/determine",
             type: "POST",
             data: JSON.stringify(data),
             success: function (data, textStatus, jqXHR) {
-                console.log("TOT SU Daya",data);
                 data = data.replace(/'/g, '"');
                 let data_json = JSON.parse(data);
+                console.log("TOTO JE JSON", data_json);
                  $('#main').load('network.html', function () {
-//                    $('#rec_lp').html('<div class="ui-block">Here I am</div>')
                     if ('content' in document.createElement('template')) {
-                    console.log("Naslo mi template")
-                    var template = document.querySelector('#end_of_transaction_block');
-                    data_json.forEach(lp => {
-                    console.log("LP", lp);
-                 var clone = template.content.cloneNode(true);
-                    let name_title = clone.querySelectorAll(".h3.post-title");
-                    name_title[0].textContent = lp.name;
-                    $('#rec_lp').append(clone);
+                        var template = document.querySelector('#end_of_transaction_block');
+                        data_json.forEach(lp => {
+                            let clone = template.content.cloneNode(true);
+                            let name_title = clone.querySelectorAll(".h3.post-title");
+                            let user_name = clone.querySelectorAll(".post__author-name");
+                            let text = clone.querySelectorAll(".text_lp");
 
-                });
+                            name_title[0].textContent = lp.name;
+                            user_name[0].textContent = lp.user_id;
+                            text[0].textContent = "This is the text about my learning process.";
+                            $('#rec_lp').append(clone);
+
+                        });
                     }
-
                 });
-
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                // render error
                 console.log("error", textStatus, errorThrown);
-                $('#main').load('network.html', function () {
-
-                    $('.main-header-content').html('<p>error</p>')
-                });
-                console.log("error");
                 $('#main').load('network.html');
             }
         });
