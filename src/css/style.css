@@ -105,10 +105,9 @@ span#countdown {
 
 .preloader-data {
     position: absolute;
-    top: 97%;
-    right: 0;
+    bottom: 0px;
+    right: 15px;
 }
-
 
 .landing-content h1,
 .landing-content h6 {
