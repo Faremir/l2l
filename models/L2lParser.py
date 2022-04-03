@@ -46,6 +46,7 @@ class L2l_Parser:
                 reverse=True)
         total = len(result)
         limit = max_limit if max_limit >= total else total
+        print(result)
         return result[:limit]
 
     def get_attr_diff(self, current_process: Optional[object]):

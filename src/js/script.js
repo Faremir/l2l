@@ -187,7 +187,7 @@
         });
         let steps = process_steps();
         let value = {
-            "success_rate": (total_score / max_score) * 100,
+            "overall_success_rate": (total_score / max_score) * 100,
             "visual_value": visual_value,
             "static_value": static_value,
             "emotional_value": emotional_value,
@@ -215,6 +215,7 @@
     }
 
     function call_ajax(data) {
+    console.log("TOTO SU DAYA", data);
         $.ajax({
             url: "/determine",
             type: "POST",
@@ -222,13 +223,16 @@
             success: function (data, textStatus, jqXHR) {
                 //data - response from server
                 console.log(data, textStatus, jqXHR);
+                console.log("succeets", textStatus);
                 $('#main').load('network.html', function () {
                     $('.main-header-content').html('<p>data</p>')
                 });
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 // render error
+                console.log("error", textStatus, errorThrown);
                 $('#main').load('network.html', function () {
+
                     $('.main-header-content').html('<p>error</p>')
                 });
             }
@@ -251,6 +255,7 @@
             msLeft = endTime - (+new Date);
             if (msLeft < 1000) {
                 element.innerHTML = "00:00";
+                save_button()
                 $('#learning-icon').addClass('disabled');
                 $('#results-icon').removeClass('disabled');
                 $('#render_step_btn').addClass('disabled');
@@ -371,7 +376,7 @@
             if ($checked.length === 5) {
                 $('#person-icon').addClass('disabled');
                 $('#learning-icon').removeClass('disabled');
-                countdown("ten-countdown", 0, 10);
+                countdown("ten-countdown", 0, 12);
             }
         });
     });
