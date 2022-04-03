@@ -42,6 +42,7 @@ a.logo .sub-title {
 .question label {
     font-size: 14px;
     width: 80%;
+    text-align: center;
 }
 
 .question label > img {
@@ -62,4 +63,21 @@ a.logo .sub-title {
 
 .btn-send {
     margin-left: 20px;
+}
+
+.btn-primary.hidden {
+    display: none;
+}
+
+.question-wrapper.hidden {
+    display: none !important;
+}
+
+.question-wrapper.visible {
+    display: flex !important;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: baseline;
 }
