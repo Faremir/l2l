@@ -37,13 +37,12 @@
             'visual_value': 0,
         };
         $checked.each(function () {
-                let data = $(this).data();
-                values.interactive_value += data.interactive_value
-                values.emotional_value += data.emotional_value
-                values.static_value += data.static_value
-                values.visual_value += data.visual_value
-            }
-        );
+            let data = $(this).data();
+            values.interactive_value += data.interactive_value
+            values.emotional_value += data.emotional_value
+            values.static_value += data.static_value
+            values.visual_value += data.visual_value
+        });
         return _.max(Object.keys(values), o => values[o]);
     }
 
@@ -183,6 +182,7 @@
             "static_value": 0,
             "emotional_value": 0,
             "interactive_value": 0,
+            "total_score": 0,
             "steps": false,
             "name": first_names[name_id] + " " + last_names[surname_id],
             "user_id": user_id
@@ -223,9 +223,14 @@
                     }
                 }
             }
+            value['overall_success_rate'] = (value['total_score'] / max_score) * 100;
 
         });
-        value['steps'] = process_steps()
+        value['assignments'] = [{
+            'name': 'initial_assignment',
+            'success_rate': value['overall_success_rate'],
+            'steps': process_steps()
+        }]
 //        let value = {
 //            "overall_success_rate": (total_score / max_score) * 100,
 //            "visual_value": visual_value,
@@ -399,12 +404,8 @@
 
         $('.container').on('mouseover', '.growing', function () {
             let font_size = parseInt($(this).css('font-size'), 10);
-            $(this).animate(
-                {'fontSize': font_size + 10 + "px"},
-                'easeInOutCubic',
-                function () {
-                }
-            );
+            $(this).animate({'fontSize': font_size + 10 + "px"}, 'easeInOutCubic', function () {
+            });
         })
 
         $("input[type=radio]").on('change', function () {
