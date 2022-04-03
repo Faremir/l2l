@@ -283,12 +283,12 @@
                             let name_title = clone.querySelectorAll(".h3.post-title");
                             let user_name = clone.querySelectorAll(".post__author-name");
                             let text = clone.querySelectorAll(".text_lp");
-
+                            let json_dump = clone.querySelectorAll("#json_dump");
                             name_title[0].textContent = lp.name;
                             user_name[0].textContent = lp.user_id;
                             text[0].textContent = "This is the text about my learning process.";
+                            json_dump[0].textContent = JSON.stringify(lp, null, 2);
                             $('#rec_lp').append(clone);
-
                         });
                     }
                 });
