@@ -237,12 +237,10 @@
                             let name_title = clone.querySelectorAll(".h3.post-title");
                             let user_name = clone.querySelectorAll(".post__author-name");
                             let text = clone.querySelectorAll(".text_lp");
-
                             name_title[0].textContent = lp.name;
                             user_name[0].textContent = lp.user_id;
                             text[0].textContent = "This is the text about my learning process.";
                             $('#rec_lp').append(clone);
-
                         });
                     }
                 });
