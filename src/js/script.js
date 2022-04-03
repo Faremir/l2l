@@ -226,13 +226,24 @@
             data: JSON.stringify(data),
             success: function (data, textStatus, jqXHR) {
                 console.log("TOT SU Daya",data);
-                let data_json = JSON.parse( data );
+                data = data.replace(/'/g, '"');
+                let data_json = JSON.parse(data);
                 data_json.forEach(lp => {
                 console.log("LP", lp);
                 });
 
                 $('#main').load('network.html', function () {
-                    $('#rec_lp').html('<div class="ui-block">Here I am</div>')
+//                    $('#rec_lp').html('<div class="ui-block">Here I am</div>')
+                    if ('content' in document.createElement('template')) {
+                    console.log("Naslo mi template")
+                    var template = document.querySelector('#end_of_transaction_block');
+                    var clone = template.content.cloneNode(true);
+                    var name_title = clone.querySelectorAll(".h3.post-title");
+                    name_title[0].textContent = "Our LP name";
+                    $('#rec_lp').append(clone);
+                    }
+
+
                 });
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -385,7 +396,7 @@
             if ($checked.length === 5) {
                 $('#person-icon').addClass('disabled');
                 $('#learning-icon').removeClass('disabled');
-                countdown("ten-countdown", 0, 10);
+                countdown("ten-countdown", 0, 5);
             }
         });
     });

@@ -35,7 +35,7 @@ class L2l_Parser:
 
     def parse(self, data):
         process = self.get_json_to_object(data, LearningProcess.from_dict)
-        result = self.determine_closest(process, 1)
+        result = self.determine_closest(process, 5)
         self.lp_list.append(process)
         return json.dumps(str([ob.__dict__ for ob in result]))
 
