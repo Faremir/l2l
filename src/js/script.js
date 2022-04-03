@@ -106,7 +106,6 @@
     }
 
     function render_questions() {
-
         let id = 0;
         questions.forEach(question => {
             let question_wrapper = document.createElement("div");
@@ -256,6 +255,7 @@
                 $('#results-icon').removeClass('disabled');
                 $('#render_step_btn').addClass('disabled');
                 $('#save_step_btn').addClass('disabled');
+                $('#remove_step_btn').addClass('disabled');
             } else {
                 time = new Date(msLeft);
                 hours = time.getUTCHours();
@@ -307,25 +307,25 @@
         })
 
         function attribute_action(maxKey) {
-            var title = "Improve your learning";
-            var bg_color = 'unset';
-            console.log(maxKey);
             switch (maxKey) {
                 case 'interactive_value':
                     $('.landing-content *').addClass('growing');
                     break;
                 case 'emotional_value':
-                    // TODO Well, think of something.
+                    $('.logo-title').addClass('growing');
+                    $('.logo-title').css({'color': 'black'});
+                    $('.sub-title').css({'color': 'black'});
                     break;
                 case 'static_value':
-                    title = "Improve your brain";
+                    $('.landing-content h1').text("Improve your brain");
+                    $('.landing-content h6').text("I am communicating with you!");
                     break;
                 case 'visual_value':
-                    bg_color = 'rgba(234, 88, 56, 0.95)';
+                    $('.content-bg-wrap').css({'background-color': 'rgba(134, 88, 56, 0.15)'});
+                    $('.logo-title').css({'color': 'black'});
+                    $('.sub-title').css({'color': 'black'});
                     break;
             }
-            $('.landing-content h1').text(title);
-            $('.content-bg-wrap').css({'background-color': bg_color});
         }
 
         function get_highest_attr($checked) {
@@ -351,8 +351,7 @@
             $(this).animate(
                 {'fontSize': font_size + 10 + "px"},
                 'easeInOutCubic',
-                function () {
-                }
+                function () {}
             );
         })
 
@@ -372,9 +371,8 @@
             if ($checked.length === 5) {
                 $('#person-icon').addClass('disabled');
                 $('#learning-icon').removeClass('disabled');
-                countdown("ten-countdown", 1, 0);
+                countdown("ten-countdown", 0, 10);
             }
-
         });
     });
 })(jQuery);

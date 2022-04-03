@@ -41,8 +41,6 @@ a.logo .sub-title {
 
 .question label {
     font-size: 14px;
-    width: 80%;
-    text-align: center;
 }
 
 .question label > img {
@@ -103,4 +101,9 @@ span#countdown {
     align-content: center;
     justify-content: center;
     align-items: baseline;
+}
+
+.landing-content h1,
+.landing-content h6 {
+    transition: opacity 0.5s;
 }

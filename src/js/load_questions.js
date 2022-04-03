@@ -147,7 +147,7 @@ const questions = [
                 "interactive_value": 4
             },
             {
-                "name":"think",
+                "name":"scream",
                 "value": "Scream out of joy",
                 "visual_value": 3,
                 "static_value": 2,
