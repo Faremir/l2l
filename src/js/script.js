@@ -197,10 +197,8 @@
                 if (answer.name == 'Check') {
                     let $checked = $("input[type=radio]:checked");
                     const maxKey = get_highest_attr($checked);
-                    value[maxKey] += right_option[0].name == 'yes' ? 1 : -1
+                    value[maxKey] += right_option[0].name == 'yes' ? 2 : -2
                 }
-
-
             }
             if (quiz_object.length > 0) {
                 max_score += 100
