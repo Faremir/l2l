@@ -220,41 +220,28 @@
     }
 
     function call_ajax(data) {
-    console.log("TOTO SU DAYA", data);
         $.ajax({
             url: "/determine",
             type: "POST",
             data: JSON.stringify(data),
             success: function (data, textStatus, jqXHR) {
-                console.log("TOT SU Daya",data);
                 data = data.replace(/'/g, '"');
                 let data_json = JSON.parse(data);
                  $('#main').load('network.html', function () {
-//                    $('#rec_lp').html('<div class="ui-block">Here I am</div>')
                     if ('content' in document.createElement('template')) {
-                    console.log("Naslo mi template")
-                    var template = document.querySelector('#end_of_transaction_block');
-                data_json.forEach(lp => {
-                console.log("LP", lp);
-                 var clone = template.content.cloneNode(true);
-                    var name_title = clone.querySelectorAll(".h3.post-title");
-                    name_title[0].textContent = lp.name;
-                    $('#rec_lp').append(clone);
+                        var template = document.querySelector('#end_of_transaction_block');
+                        data_json.forEach(lp => {
+                            var clone = template.content.cloneNode(true);
+                            var name_title = clone.querySelectorAll(".h3.post-title");
+                            name_title[0].textContent = lp.name;
+                            $('#rec_lp').append(clone);
 
-                });
+                        });
                     }
-
                 });
-
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                // render error
                 console.log("error", textStatus, errorThrown);
-                $('#main').load('network.html', function () {
-
-                    $('.main-header-content').html('<p>error</p>')
-                });
-                console.log("error");
                 $('#main').load('network.html');
             }
         });
