@@ -15,16 +15,23 @@
     function save_button() {
         var timeNow = (new Date()).getTime();
         let last_div = $('.step').last()
+        if ($(last_div).data().processed === "False" || !$(last_div).children('.step-value').val()) {
+            alert("You need to fill the value field before saving!");
+            return false;
+        }
         let step_time_consumed = document.createElement("span");
         step_time_consumed.innerHTML = (timeNow - $last_clicked) / 1000
         $(last_div).append(step_time_consumed);
+        $(last_div).data('processed', true)
         $last_clicked = timeNow;
+        return true;
     }
 
-    function render_step() {
+    function render_step(current_step) {
         $last_clicked = (new Date()).getTime();
         let step_wrap = document.createElement("div");
         step_wrap.className = "step";
+        step_wrap.dataset.processed = "False";
 
         let step_type_label = document.createElement("label");
         step_type_label.innerHTML = "Choose type"
@@ -56,48 +63,63 @@
         $(step_wrap).append(step_com_label);
         $(step_wrap).append(step_comment_input);
         $('#steps').append(step_wrap);
+        if (current_step >= 1) {
+            let add_step_btn = $('#render_step_btn');
+            add_step_btn.data('save', true);
+            add_step_btn.html("Save & Add new entry");
+            $('#save_step_btn').removeClass('hidden');
+            $('#remove_step_btn').removeClass('hidden');
+        }
+    }
+
+    function render_label(question, parent_el) {
+        let question_label = document.createElement("h4");
+        question_label.innerHTML = question.text;
+        $(parent_el).append(question_label);
+    }
+
+    function render_option(option, name) {
+        let input_element = document.createElement("input");
+        input_element.id = option.name;
+        input_element.type = "radio";
+        input_element.name = name;
+        input_element.value = option.name;
+        input_element.dataset.visual_value = option.visual_value;
+        input_element.dataset.static_value = option.static_value;
+        input_element.dataset.emotional_value = option.emotional_value;
+        input_element.dataset.interactive_value = option.interactive_value;
+        return input_element;
+    }
+
+    function render_answer(category, value) {
+        let label_element = document.createElement("label");
+        if (["visual", "emotional"].includes(category)) {
+            let img_element = document.createElement("img");
+            img_element.src = value;
+            $(label_element).append(img_element);
+        } else $(label_element).append(value);
+
+        return label_element;
     }
 
     function render_questions() {
-        function render_label(question, parent_el) {
-            let question_label = document.createElement("h4");
-            question_label.innerHTML = question.text;
-            $(parent_el).append(question_label);
-        }
 
-        function render_option(option, question) {
-            let input_element = document.createElement("input");
-            input_element.id = option.name;
-            input_element.type = "radio";
-            input_element.name = question.name;
-            input_element.value = option.name;
-            input_element.dataset.visual_value = option.visual_value;
-            input_element.dataset.static_value = option.static_value;
-            input_element.dataset.emotional_value = option.emotional_value;
-            input_element.dataset.interactive_value = option.interactive_value;
-            return input_element;
-        }
-
+        let id = 0;
         questions.forEach(
             question => {
                 let question_wrapper = document.createElement("div");
-                question_wrapper.className = question.name.toLowerCase()
+                let view = id++ === 0 ? 'visible' : 'hidden';
+                let wrapper_id = question.name.toLowerCase();
+                question_wrapper.className = 'question-wrapper ' + view + ' question-' + wrapper_id
                 render_label(question, question_wrapper);
                 $("#insert-person").append(question_wrapper);
                 question.options.forEach(option => {
                     let input_wrapper = document.createElement("div");
                     input_wrapper.className = "col-12 question";
-                    let input_element = render_option(option, question);
+                    let input_element = render_option(option, question.name);
                     $(input_wrapper).append(input_element);
-                    let label_element = document.createElement("label");
+                    let label_element = render_answer(question.category, option.value);
                     label_element.for = input_element.id;
-                    if (["visual", "emotional"].includes(question.category)) {
-                        let img_element = document.createElement("img");
-                        img_element.src = option.value;
-                        $(label_element).append(img_element);
-                    } else {
-                        $(label_element).append(option.value);
-                    }
                     $(input_wrapper).append(label_element);
                     $(question_wrapper).append(input_wrapper);
                 });
@@ -121,10 +143,10 @@
                 $(input_wrapper).append(label_element);
                 $("#insert-results").append(input_wrapper);
             });
-    };
+    }
 
     function process_form() {
-	    let max_score = 0;
+        let max_score = 0;
         let visual_value = 0;
         let static_value = 0;
         let emotional_value = 0;
@@ -134,10 +156,10 @@
 
         $('form').serializeArray().forEach(
             answer => {
-                let question_object = questions.filter(x => x.name == answer.name)
-                let quiz_object = quiz_questions.filter(x => x.name == answer.name)
+                let question_object = questions.filter(x => x.name === answer.name)
+                let quiz_object = quiz_questions.filter(x => x.name === answer.name)
                 if (question_object.length > 0) {
-                    let right_option = question_object[0].options.filter(x => x.name == answer.value)
+                    let right_option = question_object[0].options.filter(x => x.name === answer.value)
                     visual_value += right_option[0].visual_value
                     static_value += right_option[0].static_value
                     emotional_value += right_option[0].emotional_value
@@ -145,7 +167,7 @@
 
                 }
                 if (quiz_object.length > 0) {
-				    max_score += 100
+                    max_score += 100
                     if (Number(answer.value)) {
                         difference = Math.abs(Number(quiz_object[0].right_answer) - Number(answer.value))
                         let percentage = Number(quiz_object[0].right_answer) / Number(answer.value);
@@ -175,7 +197,7 @@
 		}
 		console.log(value)
 		return value;
-    };
+    }
 
 	function process_steps() {
         let step_count = 1;
@@ -280,6 +302,23 @@
                     }
                 );
                 const maxKey = _.max(Object.keys(values), o => values[o]);
+    function get_highest_attr($checked) {
+        let values = {
+            'interactive_value': 0,
+            'emotional_value': 0,
+            'static_value': 0,
+            'visual_value': 0,
+        };
+        $checked.each(function () {
+                let data = $(this).data();
+                values.interactive_value += data.interactive_value
+                values.emotional_value += data.emotional_value
+                values.static_value += data.static_value
+                values.visual_value += data.visual_value
+            }
+        );
+        return _.max(Object.keys(values), o => values[o]);
+    }
 
                 var title = "Improve your learning";
                 var bg_color = 'unset';
@@ -307,5 +346,91 @@
             }
         })
         $('input')
+    function attribute_action(maxKey) {
+        var title = "Improve your learning";
+        var bg_color = 'unset';
+        console.log(maxKey);
+        switch (maxKey) {
+            case 'interactive_value':
+                $('.landing-content *').addClass('growing');
+                break;
+            case 'emotional_value':
+                // TODO Well, think of something.
+                break;
+            case 'static_value':
+                title = "Improve your brain";
+                break;
+            case 'visual_value':
+                bg_color = 'rgba(234, 88, 56, 0.95)';
+                break;
+        }
+        $('.landing-content h1').text(title);
+        $('.content-bg-wrap').css({'background-color': bg_color});
+    }
+
+    $document.ready(function () {
+        var steps = 0;
+        //Render Questions & Quiz
+        render_questions();
+        render_quiz();
+
+        // Events
+        $("#render_step_btn").on("click", function () {
+            let add_new = true
+            if (steps >= 1 && $(this).data().save !== 'False') add_new = save_button();
+            if (add_new) render_step(++steps);
+
+        });
+        $("#remove_step_btn").on("click", function () {
+            $('.step').last().remove();
+            steps--;
+            if (steps === 0) {
+                let add_step_btn = $('#render_step_btn');
+                add_step_btn.data('save', false);
+                add_step_btn.html("Add entry");
+                $('#save_step_btn').addClass('hidden');
+                $('#remove_step_btn').addClass('hidden');
+            }
+        });
+
+        $("#save_step_btn").on("click", function () {
+            save_button();
+        });
+
+        $("#process_form_btn").on("click", function () {
+            var data = process_form();
+            call_ajax(data);
+        });
+
+        $("input[type=radio]").on('change', function () {
+            let $checked = $("input[type=radio]:checked");
+            if ($checked.length === 4) {
+                const maxKey = get_highest_attr($checked);
+                attribute_action(maxKey);
+            }
+            let $wrapper = $(this).parents('.question-wrapper');
+            let $closest = $wrapper.next('.hidden');
+            if ($closest.length !== 0) {
+                $wrapper.toggleClass('hidden visible')
+                $closest.toggleClass('visible hidden')
+            } else $('.nav-tabs li:eq(1) a').tab('show')
+
+
+        });
+
+        $('.container')
+            .on('mouseover', '.growing', function () {
+
+                let font_size = parseInt($(this).css('font-size'), 10);
+
+
+                $(this).animate(
+                    {'fontSize': font_size + 10 + "px"},
+                    'easeInOutCubic',
+                    function () {
+                    }
+                );
+            })
+
     });
 })(jQuery);

@@ -42,6 +42,7 @@ a.logo .sub-title {
 .question label {
     font-size: 14px;
     width: 80%;
+    text-align: center;
 }
 
 .question label > img {
@@ -85,4 +86,21 @@ span#countdown {
     font-size: 20px;
     text-decoration: none;
     text-align: center;
+}
+
+.btn-primary.hidden {
+    display: none;
+}
+
+.question-wrapper.hidden {
+    display: none !important;
+}
+
+.question-wrapper.visible {
+    display: flex !important;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: baseline;
 }
