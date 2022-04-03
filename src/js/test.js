@@ -1112,7 +1112,6 @@ var test_case = {
                 console.log(data, textStatus, jqXHR);
             },
             error: function (jqXHR, textStatus, errorThrown) {
-
                 console.log(jqXHR, textStatus, errorThrown);
             }
         });

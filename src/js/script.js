@@ -217,13 +217,13 @@
             success: function (data, textStatus, jqXHR) {
                 //data - response from server
                 console.log(data, textStatus, jqXHR);
-                $('body.landing-page').load('network.html', function() {
+                $('#main').load('network.html', function() {
                     $('.main-header-content').html('<p>data</p>')
                 });
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 // render error
-                $('body.landing-page').load('network.html', function() {
+                $('#main').load('network.html', function() {
                     $('.main-header-content').html('<p>error</p>')
                 });
             }

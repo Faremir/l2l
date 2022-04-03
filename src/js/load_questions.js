@@ -2,7 +2,7 @@ const questions = [
     {
         "name": "Picture",
         "category": "visual",
-        "text": "Choose one picture.",
+        "text": "1. Choose one picture.",
         "options": [
             {
                 "name":"visual",
@@ -42,7 +42,7 @@ const questions = [
     {
         "name": "Book",
         "category": "static",
-        "text": "What kind of book would you like to read for fun?",
+        "text": "2. What kind of book would you like to read for fun?",
         "options": [
             {
                 "name":"pictures",
@@ -81,7 +81,7 @@ const questions = [
     {
         "name": "Spelling",
         "category": "interactive",
-        "text": "When you are not sure how to spell a word, what are you most likely to do?",
+        "text": "3. When you are not sure how to spell a word, what are you most likely to do?",
         "options": [
             {
                 "name":"write",
@@ -120,7 +120,7 @@ const questions = [
     {
         "name": "Cat",
         "category": "static",
-        "text": "When you see the word cat, what do you do first?",
+        "text": "4. When you see the word cat, what do you do first?",
         "options": [
             {
                 "name":"imagine",
@@ -159,7 +159,7 @@ const questions = [
     {
         "name": "Check",
         "category": "check",
-        "text": "Did you any notice changes on website?",
+        "text": "5. Did you any notice changes on website?",
         "options": [
             {
                 "name":"yes",
