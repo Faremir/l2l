@@ -5,10 +5,10 @@ import names
 
 ASSIGNMENT_TYPE = 'initial_assignment'
 STEP_TYPES = ['searching', 'reading', 'looking', 'listening', 'writing']
-KEYWORDS = [names.get_first_name() for _ in range(65)]
+KEYWORDS = [names.get_first_name() for _ in range(100)]
 WRITINGS = [
     f"{names.get_first_name()} {names.get_first_name()} {names.get_first_name()} "
-    f"{names.get_first_name()}" for _ in range(35)]
+    f"{names.get_first_name()}" for _ in range(55)]
 
 
 class Serializable:

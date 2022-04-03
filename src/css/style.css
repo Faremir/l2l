@@ -56,7 +56,7 @@ a.logo .sub-title {
 }
 
 .step span {
-	margin-top: 5px;
+    margin-top: 5px;
     font-size: 14px;
 }
 
@@ -69,16 +69,16 @@ a.logo .sub-title {
 }
 
 #process_form_btn {
-	margin-left: 25px;
+    margin-left: 25px;
 }
 
 .nav-tabs .nav-link.disabled {
-	border-color: #e6ecf5;
+    border-color: #e6ecf5;
 }
 
 span#countdown {
     border: 2px solid #004853;
-    display:inline;
+    display: inline;
     padding: 5px;
     color: #004853;
     font-size: 20px;
@@ -102,6 +102,13 @@ span#countdown {
     justify-content: center;
     align-items: baseline;
 }
+
+.preloader-data {
+    position: absolute;
+    top: 97%;
+    right: 0;
+}
+
 
 .landing-content h1,
 .landing-content h6 {

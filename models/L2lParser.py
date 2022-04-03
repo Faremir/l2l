@@ -32,6 +32,7 @@ class L2l_Parser:
         processes = self.get_json_to_object(data, LearningProcesses.from_dict)
         for process in processes.lps:
             self.lp_list.append(process)
+        return json.dumps(str([lp.name for lp in self.lp_list]))
 
     def parse(self, data):
         process = self.get_json_to_object(data, LearningProcess.from_dict)
@@ -44,6 +45,7 @@ class L2l_Parser:
         result = sorted(
                 self.lp_list, key=lambda lp: (attr_differences[lp.name], lp.overall_success_rate),
                 reverse=True)
+        result = [lp for lp in result if lp.user_id != current_process.user_id]
         total = len(result)
         limit = max_limit if max_limit <= total else total
         return result[:limit]
