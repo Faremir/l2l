@@ -220,17 +220,15 @@
             type: "POST",
             data: JSON.stringify(data),
             success: function (data, textStatus, jqXHR) {
-                //data - response from server
                 console.log(data, textStatus, jqXHR);
+                console.log("here i am");
                 $('#main').load('network.html', function () {
-                    $('.main-header-content').html('<p>data</p>')
+                    $('#rec_lp').html('<div class="ui-block">Here I am</div>')
                 });
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                // render error
-                $('#main').load('network.html', function () {
-                    $('.main-header-content').html('<p>error</p>')
-                });
+                console.log("error");
+                $('#main').load('network.html');
             }
         });
     }
