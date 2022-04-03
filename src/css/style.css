@@ -107,3 +107,7 @@ span#countdown {
 .landing-content h6 {
     transition: opacity 0.5s;
 }
+
+#json_dump {
+	margin-top: 20px;
+}
